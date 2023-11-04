@@ -1,9 +1,39 @@
-<mxfile host="app.diagrams.net" modified="2023-11-04T11:08:21.218Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0" version="22.0.8" etag="MF35VvunHdsksLgK0n7Z" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-04T21:10:37.473Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0" etag="238LgKbTeW_R5XO4YaUQ" version="22.0.8" type="github">
   <diagram name="Page-1" id="PBg55gAw4XukbWbmwyFZ">
-    <mxGraphModel>
+    <mxGraphModel dx="2074" dy="1151" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-1" value="Speech Jokey Application" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="760" height="670" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-6" value="Split View" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="720" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-8" value="Input text field" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="70" y="140" width="440" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-2" value="Say" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="520" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-3" value="Pause" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="650" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-4" value="Spell Word" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="520" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-5" value="... more SSML buttons ..." style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;dashed=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="520" y="290" width="250" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-11" value="Load file" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="60" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-12" value="Generate voice" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="60" y="630" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jWaxqjP-sUgYHKbU6pf7-14" value="Listen" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="190" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
