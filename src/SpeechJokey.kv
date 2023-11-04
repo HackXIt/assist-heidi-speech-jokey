@@ -1,8 +1,15 @@
 BoxLayout:
     orientation: 'vertical'
+    Button:
+        text: 'top-of-everything-else'
     BoxLayout:
         padding: '10dp'
         spacing: '10dp'
+
+        Button:
+            text: 'whatever'
+        Button:
+            text: 'else'
 
         # Side menu for loading and listening
         BoxLayout:
@@ -46,6 +53,7 @@ BoxLayout:
                         text: 'Say'
                         size_hint_y: 0.33
                         # Add action for Say
+                        on_press: say_something()
                     Button:
                         text: 'Pause'
                         size_hint_y: 0.33
