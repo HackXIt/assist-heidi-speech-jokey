@@ -13,7 +13,11 @@
             "**/.DS_Store": true,
             "**/Thumbs.db": true,
             ".vscode/.history": true
-        }
+        },
+        "todo-tree.filtering.excludeGlobs": [
+            "**/node_modules/*/**",
+            "**/playground/**"
+        ]
     },
     "extensions": {
         "recommendations": [
