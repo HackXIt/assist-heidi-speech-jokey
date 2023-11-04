@@ -5,7 +5,7 @@ description = "An application to synthesize speech using arbitrary voice APIs"
 license = "MIT"
 authors = [
     "HackXIt <hackxit@gmail.com>",
-    "ChiaraCalvo <some-email@your-mail.com>",
+    "ChiaraCalvo <c.calvo1@studenti.unibg.it>",
     "Martina Tumsich <marty.tumsich@gmail.com>"
 ]
 readme = "README.md"
