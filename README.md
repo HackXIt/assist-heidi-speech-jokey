@@ -37,3 +37,18 @@ To run the application, execute the following command in the root of the project
 ```
 poetry run python src/app.py
 ```
+
+# Tutorials for beginner contributors
+## How to use Git
+Git is a version control system. It allows you to keep track of changes made to your code and to collaborate with others. To learn more about Git, see [this fundamental beginner tutorial](https://www.youtube.com/watch?v=HVsySz-h9r4).
+
+Alternatively, you can play the [Git game](https://ohmygit.org/) to learn git interactively.
+
+## How to use GitHub
+GitHub is a platform for hosting Git repositories. It allows you to collaborate with others on your code. To learn more about GitHub, see [this crash course](https://www.youtube.com/watch?v=iv8rSLsi1xo).
+
+## How to use VS Code
+VS Code is a code editor. It allows you to write code and to collaborate with others. To learn more about VS Code, see [this crash course](https://www.youtube.com/watch?v=WPqXP_kLzpo).
+
+## How to use Kivy
+Kivy is a framework for building user interfaces. It allows you to build user interfaces for your application. To learn more about Kivy, watch [this playlist](https://www.youtube.com/playlist?list=PLCC34OHNcOtpz7PJQ7Tv7hqFBP_xDDjqg) for a beginner friendly introduction to the framework.

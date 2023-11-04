@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.uix.splitter import Splitter
 from kivy.uix.label import Label
 
-class SplitViewApp(App):
+class SpeechJokeyApp(App):
     def build(self):
         splitter = Splitter(sizable_from = 'left')
         splitter.add_widget(Label(text = 'Panel 1', size_hint = (0.6, 1)))
@@ -15,4 +15,4 @@ class SplitViewApp(App):
         return splitter
 
 if __name__ == "__main__":
-    SplitViewApp().run()
+    SpeechJokeyApp().run()
