@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "speech-jokey"
+version = "0.0.1"
+description = "An application to synthesize speech using arbitrary voice APIs"
+license = "MIT"
+authors = [
+    "HackXIt <hackxit@gmail.com>",
+    "ChiaraCalvo <some-email@your-mail.com>",
+    "Martina Tumsich <some-email@your-email.com>"
+]
+readme = "README.md"
+repository = "https://github.com/HackXIt/assist-heidi-speech-jokey"
+keywords = ["speech-synthesis", "ML", "cerebral-pulsy"]
+
+[tool.poetry.dependencies]
+python = "^3.11.0"
+kivy = {version = "2.2.1", extras = ["base"]}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

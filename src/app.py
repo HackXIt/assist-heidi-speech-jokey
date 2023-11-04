@@ -1,12 +1,3 @@
-'''
-File: app.py
-Created on: Thursday, 2023-10-05 @ 16:22:13
-Author: HackXIt (<hackxit@gmail.com>)
------
-Last Modified: Thursday, 2023-10-05 @ 19:24:29
-Modified By:  HackXIt (<hackxit@gmail.com>) @ HACKXIT
------
-'''
 from kivy.app import App
 from kivy.uix.splitter import Splitter
 from kivy.uix.label import Label

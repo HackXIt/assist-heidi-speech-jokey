@@ -14,5 +14,13 @@
             "**/Thumbs.db": true,
             ".vscode/.history": true
         }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.vscode-pylance",
+            "Gruntfuggly.todo-tree",
+            "zeshuaro.vscode-python-poetry"
+        ]
     }
 }
