@@ -6,7 +6,7 @@ license = "MIT"
 authors = [
     "HackXIt <hackxit@gmail.com>",
     "ChiaraCalvo <some-email@your-mail.com>",
-    "Martina Tumsich <some-email@your-email.com>"
+    "Martina Tumsich <marty.tumsich@gmail.com>"
 ]
 readme = "README.md"
 repository = "https://github.com/HackXIt/assist-heidi-speech-jokey"
