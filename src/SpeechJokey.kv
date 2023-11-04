@@ -1,0 +1,69 @@
+BoxLayout:
+    orientation: 'vertical'
+    BoxLayout:
+        padding: '10dp'
+        spacing: '10dp'
+
+        # Side menu for loading and listening
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: '100dp'
+            Button:
+                text: 'Load file'
+                size_hint_y: None
+                height: '50dp'
+                # Add action for loading file
+            Button:
+                text: 'Listen'
+                size_hint_y: None
+                height: '50dp'
+                # Add action for listening
+
+        # Main content area
+        BoxLayout:
+            orientation: 'vertical'
+            padding: '10dp'
+            spacing: '10dp'
+
+            # Input field and action buttons
+            BoxLayout:
+                size_hint_y: None
+                height: '200dp'
+
+                TextInput:
+                    id: input_text_field
+                    hint_text: 'Input text field'
+                    size_hint_x: 0.75
+                    # Add text input functionality
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_x: 0.25
+                    spacing: '10dp'
+
+                    Button:
+                        text: 'Say'
+                        size_hint_y: 0.33
+                        # Add action for Say
+                    Button:
+                        text: 'Pause'
+                        size_hint_y: 0.33
+                        # Add action for Pause
+                    Button:
+                        text: 'Spell Word'
+                        size_hint_y: 0.33
+                        # Add action for Spell Word
+
+            # Placeholder for SSML buttons
+            Label:
+                text: '... more SSML buttons ...'
+                size_hint_y: None
+                height: '30dp'
+
+            # Generate voice button at the bottom
+            Button:
+                text: 'Generate voice'
+                size_hint_y: None
+                height: '50dp'
+                # Add action for Generate voice

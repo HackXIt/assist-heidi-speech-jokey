@@ -15,6 +15,7 @@ keywords = ["speech-synthesis", "ML", "cerebral-pulsy"]
 [tool.poetry.dependencies]
 python = "^3.11.0"
 kivy = {version = "2.2.1", extras = ["base"]}
+six = "^1.16.0"
 
 [build-system]
 requires = ["poetry-core"]

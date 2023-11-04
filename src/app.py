@@ -1,18 +1,66 @@
+# Kivy imports
 from kivy.app import App
-from kivy.uix.splitter import Splitter
+from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
+from kivy.uix.filechooser import FileChooserListView
+# Module imports
+from modules.ssml.Speech import Speech
+
+#class SpeechJokeyAppLayout(BoxLayout):
+#    pass
 
 class SpeechJokeyApp(App):
     def build(self):
-        splitter = Splitter(sizable_from = 'left')
-        splitter.add_widget(Label(text = 'Panel 1', size_hint = (0.6, 1)))
+        self.speech = Speech() # Initialize the Speech builder
+        # Load the .kv file manually
+        return Builder.load_file('SpeechJokey.kv')
+    
+    def say_something(self):
+        # Example usage of say
+        self.speech.say("Hello World")
+        self.update_label()
 
-        splitter2 = Splitter(sizable_from = 'right')
-        splitter2.add_widget(Label(text = 'Panel 2', size_hint = (0.4, 1)))
+    def add_pause(self):
+        # Example usage of pause
+        self.speech.pause("1s")
+        self.update_label()
 
-        splitter.add_widget(splitter2)
+    def spell_word(self):
+        # Example usage of spell
+        self.speech.spell("Kivy")
+        self.update_label()
+    
+    def load_file(self):
+        # Create a file chooser popup
+        file_chooser = FileChooserListView()
+    # Define a callback function to load the selected file
+    def load_selected_file(selection):
+        # Check if a file was selected
+        if selection:
+            # Get the selected file path
+            file_path = selection[0]
+            # Open the file and read its contents
+            with open(file_path, 'r') as file:
+                file_contents = file.read()
+            # Update the label with the file contents
+            self.speech.say(file_contents)
+            self.update_label()
+        # Dismiss the popup
+        popup.dismiss()
+        # Create a popup to display the file chooser
+        popup = Popup(title='Select a file', content=file_chooser, size_hint=(0.9, 0.9))
+        # Bind the callback function to the file chooser selection event
+        file_chooser.bind(selection=load_selected_file)
+        # Open the popup
+        popup.open()
 
-        return splitter
+    # Method to update the label (or any other widget) with the current SSML content
+    def update_label(self):
+        # Assuming you have a Label in your kv file with id: ssml_label
+        ssml_label = self.root.ids.ssml_label  # Ensure you have 'ssml_label' as an id in your kv layout
+        ssml_label.text = self.speech.ssml(excludeSpeakTag=False)
 
 if __name__ == "__main__":
     SpeechJokeyApp().run()
