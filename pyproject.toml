@@ -13,10 +13,11 @@ repository = "https://github.com/HackXIt/assist-heidi-speech-jokey"
 keywords = ["speech-synthesis", "ML", "cerebral-pulsy"]
 
 [tool.poetry.dependencies]
-python = "^3.11.0"
+python = ">=3.9,<3.12"                          # Lower than 3.12 because of kivy compatibility (3.7 - 3.11)
 kivy = { version = "2.2.1", extras = ["base"] }
 six = "^1.16.0"
-pyinstaller = "^4.7"
+buildozer = "^1.5.0"
+pyinstaller = "^6.2.0"
 
 [build-system]
 requires = ["poetry-core"]
