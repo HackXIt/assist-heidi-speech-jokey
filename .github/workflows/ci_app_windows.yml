@@ -1,0 +1,40 @@
+name: Windows Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+
+      - name: Install dependencies with Poetry
+        run: |
+          poetry config virtualenvs.create false
+          poetry install --no-dev
+
+      - name: Build the application with PyInstaller
+        run: |
+          poetry run pyinstaller --onefile --windowed src/main.py
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-executable
+          path: dist/*.exe
