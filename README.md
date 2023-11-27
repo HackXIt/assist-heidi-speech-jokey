@@ -60,14 +60,15 @@ This file needs to be modified according to the following steps:
 2. Add source tree after `COLLECT(exe,`: `Tree('src\\'),`
 3. Add source dependencies after `a.datas,`: `*[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],`
 
-After these modifications, the application can be finalizes by running:
+After these modifications, the application can be finalized by running:
 ```
 poetry run pyinstaller SpeechJokey.spec
 ```
 
 Inside the `dist` output folder a folder with the name `SpeechJokey` can be found. This folder contains the final `.exe` build of the application.
 
-For a detailed step-by-step guide on how to build a Kivy application, see [this written tutorial](https://github.com/CovidCoder/Kivy-App-Package-Windows-Tutorial/blob/master/KivyPackageTut.md). (Keep in mind that the tutorial doesn't use poetry, so any command should be preceeded by `poetry run`)
+For a detailed step-by-step guide on how to build a Kivy application, see [this written tutorial](https://github.com/CovidCoder/Kivy-App-Package-Windows-Tutorial/blob/master/KivyPackageTut.md). 
+_(Keep in mind that the tutorial doesn't use poetry, so any command should be preceeded by `poetry run`)_
 
 # Tutorials for beginner contributors
 ## How to use Git
