@@ -19,6 +19,7 @@ Write-Output 'INFO: Installing Poetry'
 pip install poetry
 
 # Set KIVY_GL_BACKEND to angle_sdl2 for compatibility
+$env:KIVY_LOG_LEVEL = "error"
 $env:KIVY_GL_BACKEND = 'angle_sdl2'
 
 # Install dependencies with Poetry
@@ -38,7 +39,7 @@ Copy-Item ".github/static/$TargetSpecFile" -Destination "."
 
 # Build the executable using PyInstaller
 Write-Output 'INFO: Building executable with PyInstaller'
-poetry run pyinstaller $TargetSpecFile
+poetry run pyinstaller $TargetSpecFile --log-level=ERROR --clean --noconfirm
 
 # Check for build success and output location
 if (Test-Path "dist\$Target.exe") {

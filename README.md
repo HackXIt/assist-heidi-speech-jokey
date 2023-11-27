@@ -43,6 +43,7 @@ poetry run python src/main.py
 
 ## Building the application executable (Windows / Local Development)
 To build the application, execute the following command in the root of the project:
+
 _(You might wanna grab a coffee while running this)_
 ```
 poetry run pyinstaller src/main.py --onefile --name SpeechJokey
@@ -55,6 +56,8 @@ This file needs to be modified according to the following steps:
 3. Add source dependencies after `a.datas,`: `*[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],`
 
 After these modifications, the application can be finalized by running:
+
+_(Should be very quick after the initial build)_
 ```
 poetry run pyinstaller SpeechJokey.spec
 ```
