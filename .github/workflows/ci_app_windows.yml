@@ -27,23 +27,18 @@ jobs:
       - name: Install dependencies with Poetry
         run: |
           poetry config virtualenvs.create false
-          poetry install --only main
+          poetry install --only main --no-root
 
       - name: Build the application with PyInstaller
         run: |
           poetry run pyinstaller --onefile --name SpeechJokey src/main.py
 
-      - name: Add kivy_deps to spec
+      - name: Modify SpeechJokey.spec file
         run: |
           (Get-Content -Path SpeechJokey.spec) -replace '^', 'from kivy_deps import sdl2, glew`n' | Set-Content -Path SpeechJokey.spec
-      
-      - name: Add source tree to spec
-        run: |
           (Get-Content -Path SpeechJokey.spec) -replace 'COLLECT\(exe,', 'COLLECT(exe,`n    Tree('"'"'src\\'"'"'),' | Set-Content -Path SpeechJokey.spec
-      
-      - name: Add dependency tree to spec
-        run: |
           (Get-Content -Path SpeechJokey.spec) -replace 'a.datas,', 'a.datas,`n    *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],' | Set-Content -Path SpeechJokey.spec
+        shell: pwsh
       
       - name: Build the spec with PyInstaller
         run: |
@@ -53,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: windows-executable
-          path: dist/SpeechJokey/*.exe
+          path: dist/SpeechJokey

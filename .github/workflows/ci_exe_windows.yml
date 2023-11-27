@@ -1,0 +1,45 @@
+name: Windows Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Execute script to .exe in Windows
+      run: "build/windows/buildExe.ps1"
+      shell: powershell -Command "& '{0}'"
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Windows executable (x86_64)
+        path: dist/
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: SpeechJokey-windows-x86_64
+        path: dist/
+
+    - name: Create Release .zip
+      run: 'Compress-Archive -DestinationPath SpeechJokey-windows-x86_64.${{ github.run_id }}.zip -Path dist\*'
+      shell: powershell
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.run_id }}_windows
+        release_name: 'Public Build Artifact: Windows ${{ github.run_id }}'
+        draft: false
+        prerelease: true

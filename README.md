@@ -38,11 +38,36 @@ The dependencies are listed in the [pyproject.toml](pyproject.toml) file. To add
 poetry add <dependency>
 ```
 
-# Running the application
+# Project build
+The following procedures assume that you have installed the dependencies and that you are working inside the virtual environment.
+
+## Running the application (Any OS / Development)
 To run the application, execute the following command in the root of the project:
 ```
 poetry run python src/main.py
 ```
+
+## Building the application executable (Windows / Production)
+To build the application, execute the following command in the root of the project:
+_(You might wanna grab a coffee while running this)_
+```
+poetry run pyinstaller src/main.py --onefile --name SpeechJokey
+```
+
+The created build application specification `SpeechJokey.spec` can now be found in the root of the project.
+This file needs to be modified according to the following steps:
+1. Import kivy dependencies at the top of the file: `from kivy_deps import sdl2, glew`
+2. Add source tree after `COLLECT(exe,`: `Tree('src\\'),`
+3. Add source dependencies after `a.datas,`: `*[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],`
+
+After these modifications, the application can be finalizes by running:
+```
+poetry run pyinstaller SpeechJokey.spec
+```
+
+Inside the `dist` output folder a folder with the name `SpeechJokey` can be found. This folder contains the final `.exe` build of the application.
+
+For a detailed step-by-step guide on how to build a Kivy application, see [this written tutorial](https://github.com/CovidCoder/Kivy-App-Package-Windows-Tutorial/blob/master/KivyPackageTut.md). (Keep in mind that the tutorial doesn't use poetry, so any command should be preceeded by `poetry run`)
 
 # Tutorials for beginner contributors
 ## How to use Git
