@@ -26,12 +26,6 @@ Installing the virtual environment is done by running:
 poetry install
 ```
 
-### How-to use poetry
-Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
-For a short introduction to poetry, see [this tutorial](https://python-poetry.org/docs/basic-usage/).
-
-Otherwise, here is a video tutorial on how to use poetry: [https://www.youtube.com/watch?v=0f3moPe_bhk](https://www.youtube.com/watch?v=0f3moPe_bhk)
-
 ## Managing Dependencies
 The dependencies are listed in the [pyproject.toml](pyproject.toml) file. To add a new dependency, run:
 ```
@@ -90,3 +84,9 @@ VS Code is a code editor. It allows you to write code and to collaborate with ot
 
 ## How to use Kivy
 Kivy is a framework for building user interfaces. It allows you to build user interfaces for your application. To learn more about Kivy, watch [this playlist](https://www.youtube.com/playlist?list=PLCC34OHNcOtpz7PJQ7Tv7hqFBP_xDDjqg) for a beginner friendly introduction to the framework.
+
+## How-to use poetry
+Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
+For a short introduction to poetry, see [this tutorial](https://python-poetry.org/docs/basic-usage/).
+
+Otherwise, here is a video tutorial on how to use poetry: [https://www.youtube.com/watch?v=0f3moPe_bhk](https://www.youtube.com/watch?v=0f3moPe_bhk)
