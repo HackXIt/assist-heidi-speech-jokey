@@ -26,17 +26,31 @@ jobs:
       with:
         name: SpeechJokey-windows-x86_64
         path: dist/
+    - name: Generate Changelog
+      id: changelog
+      uses: mikepenz/release-changelog-builder-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.run_id }}_windows
-        release_name: 'Public Build Artifact: Windows ${{ github.run_id }}'
-        draft: false
-        prerelease: true
+          tag_name: pre-release-${{ github.ref_name }}-${{ github.sha }}-${{ github.run_number }}
+          release_name: SpeechJokey Build (Windows) - ${{ github.ref_name }} @ ${{ github.sha }}
+          body: |
+            **Build Details:**
+            - **Branch:** ${{ github.ref_name }}
+            - **Commit:** ${{ github.sha }}
+            - **Build Number:** ${{ github.run_number }}
+            - **Build Date:** ${{ github.event.head_commit.timestamp }}
+            
+            **Changelog:**
+            ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: true
 
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
