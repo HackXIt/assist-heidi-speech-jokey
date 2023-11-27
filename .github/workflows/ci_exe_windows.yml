@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Execute script to .exe in Windows
-      run: ".github/scripts/windows/build_exe.ps1"
+      run: ".github/scripts/windows/build_exe_onefile.ps1"
       shell: powershell -Command "& '{0}'"
 
     - uses: actions/upload-artifact@v2
