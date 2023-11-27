@@ -47,7 +47,7 @@ To run the application, execute the following command in the root of the project
 poetry run python src/main.py
 ```
 
-## Building the application executable (Windows / Production)
+## Building the application executable (Windows / Local Development)
 To build the application, execute the following command in the root of the project:
 _(You might wanna grab a coffee while running this)_
 ```
@@ -69,6 +69,12 @@ Inside the `dist` output folder a folder with the name `SpeechJokey` can be foun
 
 For a detailed step-by-step guide on how to build a Kivy application, see [this written tutorial](https://github.com/CovidCoder/Kivy-App-Package-Windows-Tutorial/blob/master/KivyPackageTut.md). 
 _(Keep in mind that the tutorial doesn't use poetry, so any command should be preceeded by `poetry run`)_
+
+## Building the application executable (Windows / CI)
+To build the application similar to how it would be built by the CI, copy the `SpeechJokey.spec` from `.github\static` to the project root and then execute the following command in the root of the project:
+```
+poetry run pyinstaller SpeechJokey.spec
+```
 
 # Tutorials for beginner contributors
 ## How to use Git

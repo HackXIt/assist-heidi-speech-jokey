@@ -1,6 +1,7 @@
 # VSCode environment
 .vscode/.history
 
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -34,6 +35,8 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+# Do not ignore spec files for workflow
+!/.github/static/*.spec
 
 # Installer logs
 pip-log.txt
