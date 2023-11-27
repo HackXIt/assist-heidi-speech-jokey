@@ -44,6 +44,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/SpeechJokey/SpeechJokey.exe
+        asset_path: ./dist/SpeechJokey.exe
         asset_name: SpeechJokey-windows-x86_64.exe
         asset_content_type: application/octet-stream

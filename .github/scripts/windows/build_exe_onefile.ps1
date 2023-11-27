@@ -32,6 +32,11 @@ $TargetSpecFile = "$Target.spec"
 @"
 # -*- mode: python ; coding: utf-8 -*-
 from kivy_deps import sdl2, glew
+from kivymd import hooks_path as kivymd_hooks_path
+
+block_cipher = None
+app_name = 'SpeechJokey'
+#win_icon = '.\icon.ico'
 
 a = Analysis(
     ['src\\main.py'],
@@ -39,7 +44,7 @@ a = Analysis(
     binaries=[],
     datas=[],
     hiddenimports=[],
-    hookspath=[],
+    hookspath=[kivymd_hooks_path],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
@@ -54,7 +59,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
-    name='SpeechJokey',
+    name=app_name,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
