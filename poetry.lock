@@ -334,6 +334,24 @@ files = [
 requests = "*"
 
 [[package]]
+name = "kivymd"
+version = "1.1.1"
+description = "Set of widgets for Kivy inspired by Google's Material Design"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "kivymd-1.1.1.tar.gz", hash = "sha256:931a0435c2a079c6dca755c50d0023b5e1c907f7b4ac8bb9e2834daa3cefe906"},
+]
+
+[package.dependencies]
+kivy = ">=2.0.0"
+pillow = "*"
+
+[package.extras]
+dev = ["black", "coveralls", "flake8", "isort[pyproject]", "pre-commit", "pyinstaller[hook-testing]", "pytest", "pytest-cov", "pytest-timeout", "pytest_asyncio"]
+docs = ["furo", "sphinx", "sphinx-autoapi (==1.4.0)", "sphinx-copybutton", "sphinx-notfound-page", "sphinx-tabs"]
+
+[[package]]
 name = "macholib"
 version = "1.16.3"
 description = "Mach-O header analysis and editing"
@@ -698,4 +716,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "bfea57681847b7177fc0a4e0d5df745fa87cea7ac398654eabe4fa38377dc07e"
+content-hash = "0607117fc6754964f4351ca14c2a1013dc928dac90b335c344c6e80232836040"
