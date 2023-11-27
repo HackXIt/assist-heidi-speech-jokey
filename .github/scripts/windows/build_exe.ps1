@@ -16,9 +16,6 @@ Invoke-Expression (Invoke-WebRequest -Uri https://install.python-poetry.org -Use
 # Set KIVY_GL_BACKEND to angle_sdl2 for compatibility
 $env:KIVY_GL_BACKEND = 'angle_sdl2'
 
-# Navigate to the project directory (modify as per your repo structure)
-cd ${{ github.workspace }}/
-
 # Install dependencies with Poetry
 Write-Output 'INFO: Installing dependencies with Poetry'
 poetry install
