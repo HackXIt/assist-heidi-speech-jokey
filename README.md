@@ -8,7 +8,7 @@ Speech synthesis is done using various speech synthesis engines. The application
 * ... (TODO)
 
 # Project setup
-The project is based on Python `3.11`, but it also supports version above `3.9`. To install Python, follow the instructions on the [Python website](https://www.python.org/downloads/).
+The project is based on Python `3.11`, but it also supports lower version down to `3.9`. To install Python, follow the instructions on the [Python website](https://www.python.org/downloads/).
 
 ## Install dependencies
 We use poetry for dependency management. To install poetry, run:

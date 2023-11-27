@@ -82,7 +82,7 @@ coll = COLLECT(
 
 # Build the executable using PyInstaller
 Write-Output 'INFO: Building executable with PyInstaller'
-poetry run pyinstaller $TargetSpecFile
+poetry run pyinstaller --onefile $TargetSpecFile
 
 # Check for build success and output location
 if (Test-Path "dist\$Target\$Target.exe") {
