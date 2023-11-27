@@ -49,31 +49,24 @@ pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
+    Tree('src\\'),
     a.scripts,
-    [],
-    exclude_binaries=True,
+    a.binaries,
+    a.datas,
+    *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
     name='SpeechJokey',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
     console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-)
-coll = COLLECT(
-    exe,
-    Tree('src\\'),
-    a.binaries,
-    a.datas,
-    *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    name='SpeechJokey',
 )
 "@ | Set-Content $TargetSpecFile
 
@@ -82,7 +75,7 @@ coll = COLLECT(
 
 # Build the executable using PyInstaller
 Write-Output 'INFO: Building executable with PyInstaller'
-poetry run pyinstaller --onefile $TargetSpecFile
+poetry run pyinstaller $TargetSpecFile
 
 # Check for build success and output location
 if (Test-Path "dist\$Target\$Target.exe") {
