@@ -17,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Execute script to .exe in Windows
       run: ".github/scripts/windows/build_exe_onefile.ps1"
@@ -26,11 +28,14 @@ jobs:
       with:
         name: SpeechJokey-windows-x86_64
         path: dist/
-    - name: Generate Changelog
-      id: changelog
-      uses: mikepenz/release-changelog-builder-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # - name: Generate Changelog
+    #   id: changelog
+    #   uses: mikepenz/release-changelog-builder-action@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # **Changelog:**
+    # ${{ steps.changelog.outputs.changelog }}
 
     - name: Create Release
       id: create_release
@@ -46,9 +51,6 @@ jobs:
             - **Commit:** ${{ github.sha }}
             - **Build Number:** ${{ github.run_number }}
             - **Build Date:** ${{ github.event.head_commit.timestamp }}
-            
-            **Changelog:**
-            ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: true
 
