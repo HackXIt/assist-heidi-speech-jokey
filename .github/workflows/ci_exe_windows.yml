@@ -29,6 +29,7 @@ jobs:
         name: SpeechJokey-windows-x86_64
         path: dist/
 
+    # Will be enabled again once we have a first pre-release with meaningful changes
     # - name: Generate Changelog
     #   id: changelog
     #   uses: mikepenz/release-changelog-builder-action@v1
