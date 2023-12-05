@@ -1,4 +1,20 @@
 class SimpleSpeechMarkdown:
+    """
+    Simple Speech Markdown
+    A class for creating Speech Markdown strings with simple methods for each Speech Markdown element.
+    See Also:
+        https://www.speechmarkdown.org/syntax/
+
+    Args:
+        None
+    Attributes:
+        _emphasis_levels (dict): Emphasis levels
+        _rate_levels (list): Rate levels
+        _pitch_levels (list): Pitch levels
+        _time_formats (list): Time formats
+        _units (list): Units
+        _volume_levels (list): Volume levels
+    """
     _emphasis_levels = {
         "strong": "++",
         "moderate": "+",
