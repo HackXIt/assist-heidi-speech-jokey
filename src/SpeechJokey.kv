@@ -1,77 +1,82 @@
-BoxLayout:
+<MainScreen>:
     orientation: 'vertical'
-    Button:
-        text: 'top-of-everything-else'
+
     BoxLayout:
-        padding: '10dp'
-        spacing: '10dp'
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '50dp'
 
-        Button:
-            text: 'whatever'
-        Button:
-            text: 'else'
-
-        # Side menu for loading and listening
+        # Toolbar with control buttons
         BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: None
-            width: '100dp'
+            id: toolbar
+            size_hint_y: None
+            height: '50dp'
+            orientation: 'horizontal'
+
             Button:
-                text: 'Load file'
-                size_hint_y: None
-                height: '50dp'
-                # Add action for loading file
+                text: 'Load File'
+                on_press: root.load_file()
+
             Button:
                 text: 'Listen'
-                size_hint_y: None
-                height: '50dp'
-                # Add action for listening
+                on_press: root.play_audio()
 
-        # Main content area
+            Button:
+                text: 'Save'
+                on_press: root.save_file()
+
+    # Adjustable Split View for the text input and additional functionalities
+    Splitter:
+        sizable_from: 'top'
+        min_size: 100
+        max_size: 500
+
         BoxLayout:
             orientation: 'vertical'
-            padding: '10dp'
-            spacing: '10dp'
 
-            # Input field and action buttons
+            TextInput:
+                id: text_input
+                multiline: True
+                hint_text: 'Enter your text here or load from a file...'
+                on_text: root.adjust_split_view()
+
+            # SSML tag editing tools within the split view
             BoxLayout:
                 size_hint_y: None
-                height: '200dp'
-
-                TextInput:
-                    id: input_text_field
-                    hint_text: 'Input text field'
-                    size_hint_x: 0.75
-                    # Add text input functionality
-
-                BoxLayout:
-                    orientation: 'vertical'
-                    size_hint_x: 0.25
-                    spacing: '10dp'
-
-                    Button:
-                        text: 'Say'
-                        size_hint_y: 0.33
-                        # Add action for Say
-                        on_press: say_something()
-                    Button:
-                        text: 'Pause'
-                        size_hint_y: 0.33
-                        # Add action for Pause
-                    Button:
-                        text: 'Spell Word'
-                        size_hint_y: 0.33
-                        # Add action for Spell Word
-
-            # Placeholder for SSML buttons
-            Label:
-                text: '... more SSML buttons ...'
-                size_hint_y: None
-                height: '30dp'
-
-            # Generate voice button at the bottom
-            Button:
-                text: 'Generate voice'
-                size_hint_y: None
                 height: '50dp'
-                # Add action for Generate voice
+
+                Button:
+                    text: 'Add Break'
+                    on_press: root.insert_ssml_tag('break')
+
+                Button:
+                    text: 'Change Pitch'
+                    on_press: root.insert_ssml_tag('pitch')
+
+                Button:
+                    text: 'Emphasize'
+                    on_press: root.insert_ssml_tag('emphasis')
+
+    # Playback controls
+    BoxLayout:
+        size_hint_y: None
+        height: '50dp'
+
+        Button:
+            text: 'Play'
+            on_press: root.playback_control('play')
+
+        Button:
+            text: 'Pause'
+            on_press: root.playback_control('pause')
+
+        Button:
+            text: 'Stop'
+            on_press: root.playback_control('stop')
+
+    # Status and logs
+    Label:
+        size_hint_y: None
+        height: '30dp'
+        text: 'Status: Idle'
+        id: status_label

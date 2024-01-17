@@ -8,23 +8,23 @@ Speech synthesis is done using various speech synthesis engines. The application
 * ... (TODO)
 
 # Project setup
-The project is written in Python 3.11.0. To install Python, follow the instructions on the [Python website](https://www.python.org/downloads/).
+The project is based on Python `3.11`, but it also supports lower version down to `3.9`. To install Python, follow the instructions on the [Python website](https://www.python.org/downloads/).
 
 ## Install dependencies
 We use poetry for dependency management. To install poetry, run:
 ```
 pip install poetry
 ```
+
+Make sure to configure poetry to install the virtual environment in the project root. This can be done by running:
+```
+poetry config virtualenvs.in-project true
+```
+
 Installing the virtual environment is done by running:
 ```
 poetry install
 ```
-
-### How-to use poetry
-Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
-For a short introduction to poetry, see [this tutorial](https://python-poetry.org/docs/basic-usage/).
-
-Otherwise, here is a video tutorial on how to use poetry: [https://www.youtube.com/watch?v=0f3moPe_bhk](https://www.youtube.com/watch?v=0f3moPe_bhk)
 
 ## Managing Dependencies
 The dependencies are listed in the [pyproject.toml](pyproject.toml) file. To add a new dependency, run:
@@ -32,10 +32,45 @@ The dependencies are listed in the [pyproject.toml](pyproject.toml) file. To add
 poetry add <dependency>
 ```
 
-# Running the application
+# Project build
+The following procedures assume that you have installed the dependencies and that you are working inside the virtual environment.
+
+## Running the application (Any OS / Development)
 To run the application, execute the following command in the root of the project:
 ```
-poetry run python src/app.py
+poetry run python src/main.py
+```
+
+## Building the application executable (Windows / Local Development)
+To build the application, execute the following command in the root of the project:
+
+_(You might wanna grab a coffee while running this)_
+```
+poetry run pyinstaller src/main.py --onefile --name SpeechJokey
+```
+
+The created build application specification `SpeechJokey.spec` can now be found in the root of the project.
+This file needs to be modified according to the following steps:
+1. Import kivy dependencies at the top of the file: `from kivy_deps import sdl2, glew`
+2. Add source tree after `COLLECT(exe,`: `Tree('src\\'),`
+3. Add source dependencies after `a.datas,`: `*[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],`
+
+After these modifications, the application can be finalized by running:
+
+_(Should be very quick after the initial build)_
+```
+poetry run pyinstaller SpeechJokey.spec
+```
+
+Inside the `dist` output folder a folder with the name `SpeechJokey` can be found. This folder contains the final `.exe` build of the application.
+
+For a detailed step-by-step guide on how to build a Kivy application, see [this written tutorial](https://github.com/CovidCoder/Kivy-App-Package-Windows-Tutorial/blob/master/KivyPackageTut.md). 
+_(Keep in mind that the tutorial doesn't use poetry, so any command should be preceeded by `poetry run`)_
+
+## Building the application executable (Windows / CI)
+To build the application similar to how it would be built by the CI, copy the `SpeechJokey.spec` from `.github\static` to the project root and then execute the following command in the root of the project:
+```
+poetry run pyinstaller SpeechJokey.spec
 ```
 
 # Tutorials for beginner contributors
@@ -52,3 +87,9 @@ VS Code is a code editor. It allows you to write code and to collaborate with ot
 
 ## How to use Kivy
 Kivy is a framework for building user interfaces. It allows you to build user interfaces for your application. To learn more about Kivy, watch [this playlist](https://www.youtube.com/playlist?list=PLCC34OHNcOtpz7PJQ7Tv7hqFBP_xDDjqg) for a beginner friendly introduction to the framework.
+
+## How-to use poetry
+Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
+For a short introduction to poetry, see [this tutorial](https://python-poetry.org/docs/basic-usage/).
+
+Otherwise, here is a video tutorial on how to use poetry: [https://www.youtube.com/watch?v=0f3moPe_bhk](https://www.youtube.com/watch?v=0f3moPe_bhk)

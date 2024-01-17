@@ -1,21 +1,24 @@
 [tool.poetry]
 name = "speech-jokey"
 version = "0.0.1"
-description = "An application to synthesize speech using arbitrary voice APIs"
+description = "An assistive application designed to enhance voice generation from text files for users with restricted input abilities. Featuring intuitive navigation and editing modes, the app allows efficient insertion and customization of SSML tags through eye-tracking or keyboard inputs. It provides seamless integration with various speech synthesis APIs, adjustable to user preferences, and offers a user-friendly interface with customizable settings. Ideal for accessibility-focused users, this tool bridges the gap in digital communication by transforming text into expressive, synthesized speech."
 license = "MIT"
 authors = [
     "HackXIt <hackxit@gmail.com>",
     "ChiaraCalvo <c.calvo1@studenti.unibg.it>",
-    "Martina Tumsich <marty.tumsich@gmail.com>"
+    "Martina Tumsich <marty.tumsich@gmail.com>",
 ]
 readme = "README.md"
 repository = "https://github.com/HackXIt/assist-heidi-speech-jokey"
 keywords = ["speech-synthesis", "ML", "cerebral-pulsy"]
 
 [tool.poetry.dependencies]
-python = "^3.11.0"
-kivy = {version = "2.2.1", extras = ["base"]}
+python = ">=3.9,<3.12"                          # Lower than 3.12 because of kivy compatibility (3.7 - 3.11)
+kivy = { version = "2.2.1", extras = ["base"] }
 six = "^1.16.0"
+buildozer = "^1.5.0"
+pyinstaller = "^5.6.2"
+kivymd = "^1.1.1"
 
 [build-system]
 requires = ["poetry-core"]

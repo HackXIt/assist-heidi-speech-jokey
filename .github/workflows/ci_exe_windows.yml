@@ -1,0 +1,66 @@
+name: Windows Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Execute script to .exe in Windows
+      run: ".github/scripts/windows/build_exe_onefile.ps1"
+      shell: powershell -Command "& '{0}'"
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: SpeechJokey-windows-x86_64
+        path: dist/
+
+    # Will be enabled again once we have a first pre-release with meaningful changes
+    # - name: Generate Changelog
+    #   id: changelog
+    #   uses: mikepenz/release-changelog-builder-action@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # **Changelog:**
+    # ${{ steps.changelog.outputs.changelog }}
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          tag_name: pre-release-${{ github.ref_name }}-${{ github.sha }}-${{ github.run_number }}
+          release_name: SpeechJokey Build (Windows) - ${{ github.ref_name }} @ ${{ github.sha }}
+          body: |
+            **Build Details:**
+            - **Branch:** ${{ github.ref_name }}
+            - **Commit:** ${{ github.sha }}
+            - **Build Number:** ${{ github.run_number }}
+            - **Build Date:** ${{ github.event.head_commit.timestamp }}
+          draft: false
+          prerelease: true
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/SpeechJokey.exe
+        asset_name: SpeechJokey-windows-x86_64.exe
+        asset_content_type: application/octet-stream
