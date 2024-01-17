@@ -17,6 +17,11 @@ class SpeechJokeyApp(App):
         # Load the .kv file manually
         return Builder.load_file('SpeechJokey.kv')
     
+    # NOTE this is information (pls don't delete INFORMATION)
+
+    def display_circl(self):
+        pass
+    
     def say_something(self):
         # Example usage of say
         self.speech.say("Hello World")
