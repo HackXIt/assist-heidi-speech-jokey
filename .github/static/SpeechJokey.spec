@@ -4,13 +4,13 @@ from kivymd import hooks_path as kivymd_hooks_path
 
 block_cipher = None
 app_name = 'SpeechJokey'
-win_icon = '.\speech-jokey.png'
+win_icon = '.\speech-jokey.png'   
 
 a = Analysis(
     ['src\\main.py'],
     pathex=[],
     binaries=[],
-    datas=['src\\**\*.kv'],
+    datas=[],
     hiddenimports=['win32timezone'],
     hookspath=[kivymd_hooks_path],
     hooksconfig={},
