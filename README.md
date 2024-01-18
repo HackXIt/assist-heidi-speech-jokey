@@ -8,7 +8,8 @@ In addition, the application is specifically designed to be used with eye tracki
 We envision the application to be used as a means to become DJ of your preferred voice, hence the name speech jokey. With the application you'll be creating synthesized speech from your own provided text.
 
 The designed logo for the application is currently: 
-<img a="https://github.com/HackXIt/assist-heidi-speech-jokey/blob/f180d5f0ac2c26254804e884c03c75cedc8ba890/.github/static/speech-jokey.png"/>
+
+![speech-jokey](https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/b5cd0eb0-2baa-4a0c-b463-ace9526c8def)
 
 A [video showcase](https://github.com/HackXIt/assist-heidi-speech-jokey/blob/f180d5f0ac2c26254804e884c03c75cedc8ba890/doc/SpeechJokey_PreRelease-Development_Showcase.mp4) of the current project state of the running application can be found in the `/doc` folder.
 
@@ -83,23 +84,31 @@ poetry run pyinstaller SpeechJokey.spec
 ```
 
 # Intended features  
-<details><summary>Click here to visualize the current app interface</summary><img a="https://github.com/martinatumsich/git-exercise/assets/146335643/c96a5033-ebfb-47ac-b21d-06b50eb91605"/></details>
+
+This is what the application currently looks like.
+
+![74a5821a-faea-4734-90e4-1d00d71938d4](https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/8ed7a97f-fad1-41ac-bdb4-049549a0f0ba)
+
+Some of the screenshots following this are a little different, but hopefully they get the concept across for others to contribute.
 
 ## Loading the text
 The idea of Speech Jokey is to give the user the possibility to edit the text that he previously wrote, loading it in text input of the application. 
-<details><summary>Load</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/f61731c8-2529-4369-a9df-3a00e0e86f1c"/></details>
+
+<details><summary>Load</summary><img width="933" alt="f61731c8-2529-4369-a9df-3a00e0e86f1c" src="https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/672ef958-2c51-4865-afd5-3eaabe9c43be"></details>
 
 ## Editing the text
 The editing part is facilitated thanks to the fact that the line where the cursor is, will be "zoomed". This means that the user will visualize that line with a bigger linespace before and
 after and with a bigger space inbetween words. 
-<details><summary>Editing</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/9fe969ae-a399-4d36-9f8d-ca0d118edc63"/></details>
+
+<details><summary>Editing</summary><img width="935" alt="9fe969ae-a399-4d36-9f8d-ca0d118edc63" src="https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/ce8be5b4-ce4c-4943-befc-1e5fc54878d9"></details>
 
 The editing feature is adressed especially to people who need eye tracking devices to move the cursor. 
 
 ## SSML features for encoding intonation
 The buttons (_Add Break, Change Pitch, Emphasize_) enable to insert SSML tags between the text for the speech syntesis. 
-<details><summary>Add Break</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/39508a72-aee9-49f7-aa97-c2bd5eb76607"/></details>
-<details><summary>Change Pitch</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8"/></details>
+
+<details><summary>Add Break</summary><img width="932" alt="39508a72-aee9-49f7-aa97-c2bd5eb76607" src="https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/2dff8a4d-2ef7-4245-b596-6584dd006c25"></details>
+<details><summary>Change Pitch</summary><img width="936" alt="31dca5c9-76db-4a04-8b6d-3eef8a2f97f8" src="https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/0943c34f-b78b-41cb-bc73-edc978fdd5a6"></details>
 <details><summary>Emphasize</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8"/></details>
 
 ## Generation of an audio file 
