@@ -8,8 +8,9 @@ In addition, the application is specifically designed to be used with eye tracki
 We envision the application to be used as a means to become DJ of your preferred voice, hence the name speech jokey. With the application you'll be creating synthesized speech from your own provided text.
 
 The designed logo for the application is currently: 
+<img a="https://github.com/HackXIt/assist-heidi-speech-jokey/blob/f180d5f0ac2c26254804e884c03c75cedc8ba890/.github/static/speech-jokey.png"/>
 
-<details><summary>Application screenshot</summary><img a="https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/74a5821a-faea-4734-90e4-1d00d71938d4"/></details>
+A [video showcase](https://github.com/HackXIt/assist-heidi-speech-jokey/blob/f180d5f0ac2c26254804e884c03c75cedc8ba890/doc/SpeechJokey_PreRelease-Development_Showcase.mp4) of the current project state of the running application can be found in the `/doc` folder.
 
 ## Speech synthesis
 Speech synthesis is done using various speech synthesis engines. The application currently supports the following speech synthesis engines:
