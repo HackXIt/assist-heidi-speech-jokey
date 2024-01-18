@@ -1,0 +1,23 @@
+<ElevenLabsWidget>:
+    orientation: 'vertical'
+    
+    Label:
+        text: 'ElevenLabs API Key:'
+    TextInput:
+        id: api_key_input
+        text: root.api_key
+        multiline: False
+
+    Label:
+        text: 'Voice Name:'
+    Spinner:
+        id: voice_name_spinner
+        text: root.voice_names[0] if root.voice_names else 'No voices available'
+        values: root.voice_names
+
+    Label:
+        text: 'Model:'
+    Spinner:
+        id: model_spinner
+        text: root.model_names[0] if root.model_names else 'No models available'
+        values: root.model_names

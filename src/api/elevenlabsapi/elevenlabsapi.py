@@ -3,10 +3,14 @@ try:
 except ImportError:
     raise ImportError("Please install elevenlabs module: pip install elevenlabs (for installation details: https://github.com/elevenlabs/elevenlabs-python)")
 
-if( __name__ == '__main__'):
+if __name__ == '__main__':
     import argparse
+from kivy.app import App
+from kivy.properties import StringProperty, ListProperty, ObjectProperty
+from kivy.uix.boxlayout import BoxLayout
 import pyaudio
-from typing import Iterator
+from typing import Iterator, List
+from ..base_settings import BaseApiSettings
 
 # NOTE This is not very functionally solid, just a template for the API integration that can be iterated upon
 class ElevenLabsTTS():
@@ -55,6 +59,56 @@ class ElevenLabsTTS():
             "language": str,
             "voice": str
         }
+    
+    @staticmethod
+    def get_models() -> List[str]:
+        return ElevenLabsTTS._models
+    
+    @staticmethod
+    def get_voices() -> List[str]:
+        return [v.name for v in voices()]
+
+class ElevenLabsWidget(BoxLayout):
+    api_key = StringProperty('')
+    voice_names = ListProperty()
+    model_names = ListProperty()
+    settings = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super(ElevenLabsWidget, self).__init__(**kwargs)
+        self.voice_names = ElevenLabsTTS.get_voices()
+        self.model_names = ElevenLabsTTS.get_models()
+        self.settings = ElevenLabsSettings()
+        self.settings.load_settings()
+
+class ElevenLabsSettings(BaseApiSettings):
+    api_name = 'ElevenLabs'
+    voice = ''
+    model = ''
+
+    @classmethod
+    def isSupported(cls):
+        return True
+    
+    @classmethod
+    def get_settings_widget():
+        return ElevenLabsWidget()
+
+    def __init__(self, **kwargs):
+        super(BaseApiSettings, self).__init__(**kwargs)
+
+    def load_settings(self, settings):
+        app_instance = App.get_running_app()
+        self.api_key = app_instance.global_settings.get_setting(self.api_name, "api_key")
+        self.voice = app_instance.global_settings.get_setting(self.api_name, "voice")
+        self.model = app_instance.global_settings.get_setting(self.api_name, "model")
+
+    def save_settings(self):
+        app_instance = App.get_running_app()
+        app_instance.global_settings.update_setting(self.api_name, "api_key", self.api_key)
+        app_instance.global_settings.update_setting(self.api_name, "voice", self.voice)
+        app_instance.global_settings.update_setting(self.api_name, "model", self.model)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

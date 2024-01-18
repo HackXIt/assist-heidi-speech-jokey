@@ -22,8 +22,16 @@
                 on_press: root.play_audio()
 
             Button:
+                text: 'Generate'
+                on_press: root.generate_audio()
+
+            Button:
                 text: 'Save'
                 on_press: root.save_file()
+
+            Button:
+                text: 'Settings'
+                on_press: root.open_settings()
 
     # Adjustable Split View for the text input and additional functionalities
     Splitter:

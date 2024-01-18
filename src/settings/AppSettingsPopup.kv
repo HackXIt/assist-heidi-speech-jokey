@@ -1,0 +1,43 @@
+<AppSettingsPopup>:
+    settings_container: settings_container
+    title: 'Application Settings'
+    size_hint: None, None
+    auto_dismiss: False
+    size: 600, 600
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [10, 10, 10, 10]
+        spacing: 15
+
+        BoxLayout:
+            id: settings_container
+            orientation: "horizontal"
+            height: 20
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    text: 'Select API:'
+                    height: 20
+                Spinner:
+                    id: api_spinner
+                    text: 'None'
+                    values: root.api_options
+                    on_text: root.on_api_selected(self.text)
+                    height: 20
+
+        BoxLayout:
+            id: bottom_button_layout
+            size_hint_y: None
+            height: '48dp'
+            spacing: 10
+
+            Button:
+                text: 'Save'
+                on_release: root.save_settings()
+            Button:
+                text: 'Cancel'
+                on_release: root.dismiss()
+            Button:
+                text: 'Reset'
+                on_release: root.reset_settings()
