@@ -1,28 +1,34 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.popup import Popup
-from kivy.logger import Logger, LOG_LEVELS
-
-# Import other necessary Kivy modules
+from kivy.properties import ObjectProperty
+from kivy.logger import Logger as log, LOG_LEVELS
+from kivy.config import Config
 import os
 
 from modules.dialog import loaddialog
+from modules.util.widget_loader import load_widget
 from settings import app_settings
 
 class MainScreen(BoxLayout):
+    text_input = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super(MainScreen, self).__init__(**kwargs)
+        self.file_popup = loaddialog.LoadDialog(callback=self.load_textfile, title="Load file", size_hint=(0.9, 0.9))
+        self.file_popup.size = (400, 400)
+        self.settings_popup = app_settings.AppSettingsPopup()
+
     def load_file(self):
-        # loaddialog.LoadDialog.load_widget()
-        self.file_popup = loaddialog.LoadDialog(title="Load file", size_hint=(0.9, 0.9))
-        self.file_popup.load.on_release = self.load
-        self.file_popup.cancel.on_release = self.dismiss_popup
+        # FIXME The popup menu doesn't contain the file browser, but instead the file browser is opened as a separate popup
         # Open dialog
         self.file_popup.open()
 
-    def load_text_file(self, selection):
-        if selection:
-            with open(selection[0], 'r') as file:
-                self.ids.text_input.text = file.read()
+    def load_textfile(self, selection):
+        with open(selection[0], 'r') as file:
+            text = file.read()
+            log.info(f"Text: {text[0:40]}...")
+            self.text_input.text = text
 
     def play_audio(self):
         # Logic to play audio
@@ -33,11 +39,7 @@ class MainScreen(BoxLayout):
         pass
 
     def open_settings(self):
-        app_settings_popup_file = os.path.join(os.path.dirname(app_settings.__file__), 'AppSettingsPopup.kv')
-        Builder.unload_file(app_settings_popup_file)
-        Builder.load_file(app_settings_popup_file)
-        settings_popup = app_settings.AppSettingsPopup()
-        settings_popup.open()
+        self.settings_popup.open()
 
     def save_file(self):
         # Logic to save audio file
@@ -49,20 +51,16 @@ class MainScreen(BoxLayout):
 
     def playback_control(self, action):
         # Logic to control audio playback
-        pass        
-
-    def load(self, path, filename):
-        with open(os.path.join(path, filename[0])) as file:
-            self.ids.text_input.text = file.read()
-        self.dismiss_popup()
-
-    def dismiss_popup(self):
-        self.file_popup.dismiss()
+        pass
 
 class SpeechJokey(App):
     def build(self):
+        load_widget(os.path.join(os.path.dirname(loaddialog.__file__), 'loaddialog.kv'))
+        load_widget(os.path.join(os.path.dirname(app_settings.__file__), 'AppSettingsPopup.kv'))
         self.global_settings = app_settings.GlobalSettings()
-        Logger.setLevel(LOG_LEVELS["debug"])
+        self.icon = 'assets/speech-jokey.png'
+        Config.set('kivy','window_icon', os.path.join(os.path.dirname(__file__), self.icon))
+        log.setLevel(LOG_LEVELS["debug"])
         return MainScreen()
 
 if __name__ == '__main__':

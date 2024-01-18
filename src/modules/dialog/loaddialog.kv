@@ -1,0 +1,35 @@
+<LoadDialog>:
+    load: load_button
+    cancel: cancel_button
+    #filebrowser_list: filebrowser_list
+    filebrowser_icon: filebrowser_icon
+    label: label
+ 
+    # Providing the orientation
+    orientation: 'vertical'
+ 
+    # Creating the File list / icon view
+     
+    BoxLayout:
+        orientation: "vertical"
+        # Creating Icon view other side
+        FileChooserIconView:
+            size_hint_y: .9
+            id: filebrowser_icon
+            on_selection: root.on_browser_select(filebrowser_icon.selection)
+ 
+        BoxLayout:
+            size_hint_y: 0.1
+            # Adding label
+            Label:
+                id: label
+
+            Button:
+                id: cancel_button
+                text: "Cancel"
+                on_release: root.on_filecancel()
+
+            Button:
+                id: load_button
+                text: "Load"
+                on_release: root.on_fileload()

@@ -4,7 +4,7 @@ from kivymd import hooks_path as kivymd_hooks_path
 
 block_cipher = None
 app_name = 'SpeechJokey'
-#win_icon = '.\icon.ico'
+win_icon = '.\assets\speech-jokey.png'
 
 a = Analysis(
     ['src\\main.py'],

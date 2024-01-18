@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 from api.base_settings import BaseApiSettings
-from util.widget_loader import load_widget
+from modules.util.widget_loader import load_widget
 
 def none_settings():
     pass
@@ -126,6 +126,7 @@ class AppSettingsPopup(Popup):
     def save_settings(self):
         # Logic to save settings
         self.api_settings_container.settings.save_settings()
+        self.dismiss()
 
     def reset_settings(self):
         App.get_running_app().global_settings.reset()
