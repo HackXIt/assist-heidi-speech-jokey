@@ -61,6 +61,8 @@ class SpeechJokey(App):
         self.icon = 'assets/speech-jokey.png'
         Config.set('kivy','window_icon', os.path.join(os.path.dirname(__file__), self.icon))
         log.setLevel(LOG_LEVELS["debug"])
+        self.title = 'Speech Jokey'
+        self.api = None
         return MainScreen()
 
 if __name__ == '__main__':

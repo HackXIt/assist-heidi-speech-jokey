@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
+from kivy.event import EventDispatcher
 
-class BaseApiSettings(ABC):
+class BaseApiSettings(ABC, EventDispatcher):
     _instance = None
 
     @classmethod

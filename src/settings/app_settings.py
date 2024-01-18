@@ -82,8 +82,8 @@ class AppSettingsPopup(Popup):
                     for name, obj in inspect.getmembers(settings_module, predicate=inspect.isclass):
                         if issubclass(obj, BaseApiSettings) and obj is not BaseApiSettings:
                             if obj.isSupported():
-                                self.supported_apis[api_name] = lambda api_name=api_name: self.load_api_settings_widget(api_name, obj)
-                                log.info(f"{self.__class__.__name__}: Discovered API {api_name}")
+                                self.supported_apis[api_name] = lambda api_name=api_name, obj=obj: self.load_api_settings_widget(api_name, obj)
+                                log.info(f"{self.__class__.__name__}: Discovered API {api_name}: {obj.__name__}")
                                 self.api_options = self.supported_apis.keys()
                             else:
                                 log.debug(f"{self.__class__.__name__}: API {api_name} is not supported yet")

@@ -6,23 +6,29 @@ from ..base_settings import BaseApiSettings
 
 # NOTE This class holds the widget properties and logic for the specific API settings view. It also holds the instance of the specific API settings class.
 class ExampleAPIWidget(BoxLayout):
-    example_setting = StringProperty('')
     settings = ObjectProperty(None)
+    example_setting_input = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(ExampleAPIWidget, self).__init__(**kwargs)
         self.add_widget(Label(text="Hello World!")) # Example initialization for the widget
-        self.settings = ExampleAPISettings() # The settings instance must be created here
+        self.settings = ExampleAPISettings(self) # The settings instance must be created here
+        self.example_setting_input.bind(text=self.settings.setter('example_setting')) # Bind text input to update example_setting
+        self.settings.bind(example_setting=self.example_setting_input.setter('text')) # Bind example_setting to update text input
         self.settings.load_settings() # An initial loading of the settings is recommended
+    
+    def update(self, instance, value):
+        self.example_setting_input.text = value
 
 # NOTE This class holds the state of the specific API settings and must be derived from BaseApiSettings, which implements the required Singleton pattern for you.
 class ExampleAPISettings(BaseApiSettings):
     api_name = 'ExampleAPI'
-    example_setting = 'Foo'
+    example_setting = StringProperty('')
 
-    def __init__(self, **kwargs):
+    def __init__(self, widget, **kwargs):
         super(ExampleAPISettings, self).__init__(**kwargs)
         self.load_settings()
+        self.widget = widget
 
     @classmethod
     def isSupported(cls):
