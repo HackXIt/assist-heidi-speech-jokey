@@ -18,12 +18,7 @@ def none_settings():
 class GlobalSettings(EventDispatcher):
     _instance = None
     _settings_file = "app_settings.json"
-    _default_settings = {
-        # "ExampleAPI": {
-        #     "api_token": "default_token"
-        # },
-        # Add default settings for other APIs here
-    }
+    _default_settings = {}
 
     def __new__(cls):
         if cls._instance is None:
@@ -33,17 +28,26 @@ class GlobalSettings(EventDispatcher):
 
     def load_or_initialize_settings(self):
         if not os.path.exists(self._settings_file):
-            self._settings = self._default_settings.copy()
-            self.save_settings()
+            self.reset()
         else:
             with open(self._settings_file, 'r') as file:
                 self._settings = json.load(file)
 
+
     def save_settings(self):
         with open(self._settings_file, 'w') as file:
             json.dump(self._settings, file, indent=4)
+            log.info(f"{self.__class__.__name__}: Settings saved: {self._settings_file}")
+    
+    def load_settings(self):
+        if os.path.exists(self._settings_file):
+            with open(self._settings_file, 'r') as file:
+                self._settings = json.load(file)
+        else:
+            log.error(f"{self.__class__.__name__}: Settings file does not exist. Reset or save is required.")
 
     def update_setting(self, api_name, key, value):
+        log.debug(f"{self.__class__.__name__}: Update {api_name}: {key} to '{value}'.")
         if api_name in self._settings.keys():
             self._settings[api_name][key] = value
             self.save_settings()
@@ -52,7 +56,9 @@ class GlobalSettings(EventDispatcher):
             self.save_settings()
 
     def get_setting(self, api_name, key, default=None):
-        return self._settings.get(api_name, {}).get(key, default)
+        value = self._settings.get(api_name, {}).get(key, default)
+        log.debug(f"{self.__class__.__name__}: Load {key}: {value}")
+        return value
     
     def reset(self):
         self._settings = self._default_settings.copy()
@@ -122,11 +128,21 @@ class AppSettingsPopup(Popup):
             self.settings_container.remove_widget(self.api_settings_container)
         self.api_settings_container = settings_widget
         self.settings_container.add_widget(self.api_settings_container)
+        self.api_settings_container.settings.load_settings()
 
     def save_settings(self):
         # Logic to save settings
         self.api_settings_container.settings.save_settings()
         self.dismiss()
+    
+    def load_settings(self):
+        App.get_running_app().global_settings.load_settings()
+        if self.api_settings_container is not None:
+            self.api_settings_container.settings.load_settings()
+        self.settings_container.do_layout()
 
     def reset_settings(self):
         App.get_running_app().global_settings.reset()
+        if self.api_settings_container is not None:
+            self.settings_container.remove_widget(self.api_settings_container)
+            self.api_settings_container = ObjectProperty(None)

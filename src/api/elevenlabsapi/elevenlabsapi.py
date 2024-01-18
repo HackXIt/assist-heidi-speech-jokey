@@ -69,36 +69,39 @@ class ElevenLabsTTS():
         return [v.name for v in voices()]
 
 class ElevenLabsWidget(BoxLayout):
-    api_key_input = ObjectProperty('')
-    voice_names = ListProperty()
-    model_names = ListProperty()
+    api_key_input = ObjectProperty(None)
     voice_selection = ObjectProperty(None)
     model_selection = ObjectProperty(None)
+    voice_names = ListProperty()
+    model_names = ListProperty()
     settings = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(ElevenLabsWidget, self).__init__(**kwargs)
         self.voice_names = ElevenLabsTTS.get_voices()
+        self.voice_names.sort()
         self.model_names = ElevenLabsTTS.get_models()
         self.settings = ElevenLabsSettings()
+        # Two-way bind api-key
         self.api_key_input.bind(text=self.settings.setter('api_key'))
         self.settings.bind(api_key=self.api_key_input.setter('text'))
-        self.api_key_input.bind(on_text_validate=self.update_key)
+        self.api_key_input.bind(on_text_validate=self.update_key) # Set environment variable for token
+        # Two-way bind voice
         self.voice_selection.bind(text=self.settings.setter('voice'))
         self.settings.bind(voice=self.voice_selection.setter('text'))
+        # Two-way bind model
         self.model_selection.bind(text=self.settings.setter('model'))
         self.settings.bind(model=self.model_selection.setter('text'))
-        self.settings.load_settings()
 
     def update_key(self, instance, value):
         set_api_key(value)
-        self.api_key_input.text = value
+        instance.text = value
 
 class ElevenLabsSettings(BaseApiSettings):
     api_name = 'ElevenLabs'
+    api_key = StringProperty('')
     voice = StringProperty('')
     model = StringProperty('')
-    api_key = StringProperty('')
 
     @classmethod
     def isSupported(cls):
@@ -116,9 +119,9 @@ class ElevenLabsSettings(BaseApiSettings):
     def load_settings(self):
         # FIXME Two-way-binding interfering loading: Error loading settings for Elevenlabsapi: 'str' object has no attribute 'value'
         app_instance = App.get_running_app()
-        self.api_key.value = app_instance.global_settings.get_setting(self.api_name, "api_key", default='')
-        self.voice.value = app_instance.global_settings.get_setting(self.api_name, "voice", default='')
-        self.model.value = app_instance.global_settings.get_setting(self.api_name, "model", default='')
+        self.api_key = app_instance.global_settings.get_setting(self.api_name, "api_key", default="")
+        self.voice = app_instance.global_settings.get_setting(self.api_name, "voice", default="")
+        self.model = app_instance.global_settings.get_setting(self.api_name, "model", default="")
         app_instance.api = self.api
 
     def save_settings(self):

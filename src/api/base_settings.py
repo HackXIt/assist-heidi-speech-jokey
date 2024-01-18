@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from kivy.event import EventDispatcher
+from kivy.clock import Clock
 
 class BaseApiSettings(ABC, EventDispatcher):
     _instance = None
@@ -12,6 +13,7 @@ class BaseApiSettings(ABC, EventDispatcher):
 
     def __init__(self, **kwargs):
         super(BaseApiSettings, self).__init__(**kwargs)
+        Clock.schedule_once(lambda dt: self.load_settings, 1.5) # Do an initial load of settings
 
     @classmethod
     @abstractmethod
@@ -32,7 +34,7 @@ class BaseApiSettings(ABC, EventDispatcher):
         pass
 
     @abstractmethod
-    def load_settings(self, settings):
+    def load_settings(self):
         """
         This method must be overridden in derived classes.
         It should load the API specific settings into the application.
