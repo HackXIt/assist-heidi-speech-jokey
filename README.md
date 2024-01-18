@@ -9,13 +9,11 @@ We envision the application to be used as a means to become DJ of your preferred
 
 The designed logo for the application is currently: 
 
-![image](https://github.com/martinatumsich/git-exercise/assets/146335643/921828ec-4eb8-4983-be44-06773a2c5a42)
-
-
+<details><summary>Application screenshot</summary><img a="https://github.com/HackXIt/assist-heidi-speech-jokey/assets/1595680/74a5821a-faea-4734-90e4-1d00d71938d4"/></details>
 
 ## Speech synthesis
 Speech synthesis is done using various speech synthesis engines. The application currently supports the following speech synthesis engines:
-* ... (TODO)
+* ElevenLabs API
 
 # Project setup
 The project is based on Python `3.11`, but it also supports lower version down to `3.9`. To install Python, follow the instructions on the [Python website](https://www.python.org/downloads/).
@@ -84,24 +82,24 @@ poetry run pyinstaller SpeechJokey.spec
 ```
 
 # Intended features  
-<details><summary>Click here to visualize the current app interface</summary>![image](https://github.com/martinatumsich/git-exercise/assets/146335643/c96a5033-ebfb-47ac-b21d-06b50eb91605)</details>
+<details><summary>Click here to visualize the current app interface</summary><img a="https://github.com/martinatumsich/git-exercise/assets/146335643/c96a5033-ebfb-47ac-b21d-06b50eb91605"/></details>
 
 ## Loading the text
 The idea of Speech Jokey is to give the user the possibility to edit the text that he previously wrote, loading it in text input of the application. 
-<details><summary>Load</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/f61731c8-2529-4369-a9df-3a00e0e86f1c)</details>
+<details><summary>Load</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/f61731c8-2529-4369-a9df-3a00e0e86f1c"/></details>
 
 ## Editing the text
 The editing part is facilitated thanks to the fact that the line where the cursor is, will be "zoomed". This means that the user will visualize that line with a bigger linespace before and
 after and with a bigger space inbetween words. 
-<details><summary>Editing</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/9fe969ae-a399-4d36-9f8d-ca0d118edc63)</details>
+<details><summary>Editing</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/9fe969ae-a399-4d36-9f8d-ca0d118edc63"/></details>
 
 The editing feature is adressed especially to people who need eye tracking devices to move the cursor. 
 
 ## SSML features for encoding intonation
 The buttons (_Add Break, Change Pitch, Emphasize_) enable to insert SSML tags between the text for the speech syntesis. 
-<details><summary>Add Break</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/39508a72-aee9-49f7-aa97-c2bd5eb76607)</details>
-<details><summary>Change Pitch</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8)</details>
-<details><summary>Emphasize</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8)</details>
+<details><summary>Add Break</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/39508a72-aee9-49f7-aa97-c2bd5eb76607"/></details>
+<details><summary>Change Pitch</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8"/></details>
+<details><summary>Emphasize</summary><img a="https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8"/></details>
 
 ## Generation of an audio file 
 An audio file is generated thanks to a selected Text-To-Speech API voice. 
