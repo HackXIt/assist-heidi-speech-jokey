@@ -5,6 +5,8 @@ from kivy.properties import ObjectProperty
 from kivy.logger import Logger as log, LOG_LEVELS
 from kivy.config import Config
 import os
+import sys
+from kivy.resources import resource_add_path, resource_find
 
 from modules.dialog import loaddialog, savedialog
 from modules.util.widget_loader import load_widget
@@ -79,4 +81,6 @@ class SpeechJokey(App):
         return MainScreen()
 
 if __name__ == '__main__':
+    if hasattr(sys, '_MEIPASS'):
+        resource_add_path(os.path.join(sys._MEIPASS))
     SpeechJokey().run()
