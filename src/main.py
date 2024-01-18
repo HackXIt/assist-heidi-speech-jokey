@@ -8,6 +8,7 @@ import os
 
 from modules.dialog import loaddialog, savedialog
 from modules.util.widget_loader import load_widget
+from api.elevenlabsapi.elevenlabsapi import ElevenLabsTTS
 from settings import app_settings
 
 class MainScreen(BoxLayout):
@@ -45,7 +46,13 @@ class MainScreen(BoxLayout):
 
     def generate_audio(self):
         # Logic to save generated voice audio to file
-        pass
+        api = App.get_running_app().api
+        if isinstance(api, ElevenLabsTTS):
+            log.debug(f"Synthesizing: {self.text_input.text[0:10]}...")
+            try:
+                api.synthesize(self.text_input.text, os.path.join("tmp/", "tmp.wav"))
+            except Exception as e:
+                log.error(f"Audio generation failed: {e}")
 
     def open_settings(self):
         self.settings_popup.open()
