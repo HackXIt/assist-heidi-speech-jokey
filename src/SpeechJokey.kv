@@ -1,5 +1,6 @@
 <MainScreen>:
     orientation: 'vertical'
+    text_input: text_input
 
     BoxLayout:
         orientation: 'vertical'
@@ -18,44 +19,48 @@
                 on_press: root.load_file()
 
             Button:
+                text: 'Save File'
+                on_press: root.save_file()
+
+            Button:
                 text: 'Listen'
                 on_press: root.play_audio()
 
             Button:
-                text: 'Save'
-                on_press: root.save_file()
+                text: 'Generate'
+                on_press: root.generate_audio()
+
+            Button:
+                text: 'Settings'
+                on_press: root.open_settings()
 
     # Adjustable Split View for the text input and additional functionalities
     Splitter:
         sizable_from: 'top'
-        min_size: 100
-        max_size: 500
+        orientation: 'vertical'
 
+        TextInput:
+            id: text_input
+            multiline: True
+            hint_text: 'Enter your text here or load from a file...'
+            # on_text: root.adjust_split_view()
+
+        # SSML tag editing tools within the split view
         BoxLayout:
-            orientation: 'vertical'
+            size_hint_y: None
+            height: '50dp'
 
-            TextInput:
-                id: text_input
-                multiline: True
-                hint_text: 'Enter your text here or load from a file...'
-                on_text: root.adjust_split_view()
+            Button:
+                text: 'Add Break'
+                on_press: root.insert_ssml_tag('break')
 
-            # SSML tag editing tools within the split view
-            BoxLayout:
-                size_hint_y: None
-                height: '50dp'
+            Button:
+                text: 'Change Pitch'
+                on_press: root.insert_ssml_tag('pitch')
 
-                Button:
-                    text: 'Add Break'
-                    on_press: root.insert_ssml_tag('break')
-
-                Button:
-                    text: 'Change Pitch'
-                    on_press: root.insert_ssml_tag('pitch')
-
-                Button:
-                    text: 'Emphasize'
-                    on_press: root.insert_ssml_tag('emphasis')
+            Button:
+                text: 'Emphasize'
+                on_press: root.insert_ssml_tag('emphasis')
 
     # Playback controls
     BoxLayout:
