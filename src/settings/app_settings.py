@@ -109,14 +109,15 @@ class AppSettingsPopup(Popup):
 
     def load_api_settings_widget(self, api_name: str, settings_class: BaseApiSettings):
         try:
+            # FIXME Doesn't work in packaged build due to paths - using direct load in the beginning instead
             # Get the module in which the class is defined
-            module = inspect.getmodule(settings_class)
-            if module is None:
-                raise ImportError(f"Module for class {settings_class.__name__} not found")
+            # module = inspect.getmodule(settings_class)
+            # if module is None:
+            #     raise ImportError(f"Module for class {settings_class.__name__} not found")
 
             # Load the KV file
-            kv_file_path = os.path.join(os.path.dirname(module.__file__), f"{module.__file__.replace('.py', '.kv')}")
-            load_widget(kv_file_path)
+            # kv_file_path = os.path.join(os.path.dirname(module.__file__), f"{module.__file__.replace('.py', '.kv')}")
+            # load_widget(kv_file_path)
 
             # Load the settings widget
             self.load_settings_widget(settings_class.get_settings_widget())

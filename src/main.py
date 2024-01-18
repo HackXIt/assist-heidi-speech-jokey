@@ -11,6 +11,8 @@ from kivy.resources import resource_add_path, resource_find
 from modules.dialog import loaddialog, savedialog
 from modules.util.widget_loader import load_widget
 from api.elevenlabsapi.elevenlabsapi import ElevenLabsTTS
+from api.elevenlabsapi import elevenlabsapi
+from api.exampleapi import exampleapi
 from settings import app_settings
 
 class MainScreen(BoxLayout):
@@ -52,6 +54,7 @@ class MainScreen(BoxLayout):
         if isinstance(api, ElevenLabsTTS):
             log.debug(f"Synthesizing: {self.text_input.text[0:10]}...")
             try:
+                os.makedirs("tmp", exist_ok=True);
                 api.synthesize(self.text_input.text, os.path.join("tmp/", "tmp.wav"))
             except Exception as e:
                 log.error(f"Audio generation failed: {e}")
@@ -72,9 +75,11 @@ class SpeechJokey(App):
         load_widget(os.path.join(os.path.dirname(loaddialog.__file__), 'loaddialog.kv'))
         load_widget(os.path.join(os.path.dirname(savedialog.__file__), 'savedialog.kv'))
         load_widget(os.path.join(os.path.dirname(app_settings.__file__), 'AppSettingsPopup.kv'))
+        load_widget(os.path.join(os.path.dirname(elevenlabsapi.__file__), 'elevenlabsapi.kv'))
+        load_widget(os.path.join(os.path.dirname(exampleapi.__file__), 'exampleapi.kv'))
         self.global_settings = app_settings.GlobalSettings()
-        self.icon = 'assets/speech-jokey.png'
-        Config.set('kivy','window_icon', os.path.join(os.path.dirname(__file__), self.icon))
+        self.icon = os.path.join(os.curdir, 'speech-jokey.ico')
+        Config.set('kivy','window_icon', self.icon)
         log.setLevel(LOG_LEVELS["debug"])
         self.title = 'Speech Jokey'
         self.api = None
