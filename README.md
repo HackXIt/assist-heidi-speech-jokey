@@ -1,7 +1,17 @@
 # Speech Jokey
-This project is an application which synthesises speech from user-provided text. The application is written in Python and uses the [Kivy](https://kivy.org/#home) framework for the user interface.
+
+This project is about building an application which synthesises speech from user-provided text. The application is written in Python and uses the [Kivy](https://kivy.org/#home) framework for the user interface.
+
+Encoding intonation and emotions remains a significant challenge in the Assistive Technology Text-To-Speach field, which if overcome could definitely enhance the communication experience for people with speech impairment. The aim of Speech Jokey is therefore to allow people with communication difficulties to interact with more intonation, emotions and emphasis pauses. 
+In addition, the application is specifically designed to be used with eye tracking systems, facilitating the positioning of the cursor between lines and words of a text.  
 
 We envision the application to be used as a means to become DJ of your preferred voice, hence the name speech jokey. With the application you'll be creating synthesized speech from your own provided text.
+
+The designed logo for the application is currently: 
+
+![image](https://github.com/martinatumsich/git-exercise/assets/146335643/921828ec-4eb8-4983-be44-06773a2c5a42)
+
+
 
 ## Speech synthesis
 Speech synthesis is done using various speech synthesis engines. The application currently supports the following speech synthesis engines:
@@ -73,6 +83,36 @@ To build the application similar to how it would be built by the CI, copy the `S
 poetry run pyinstaller SpeechJokey.spec
 ```
 
+# Intended features  
+<details><summary>Click here to visualize the current app interface</summary>![image](https://github.com/martinatumsich/git-exercise/assets/146335643/c96a5033-ebfb-47ac-b21d-06b50eb91605)</details>
+
+## Loading the text
+The idea of Speech Jokey is to give the user the possibility to edit the text that he previously wrote, loading it in text input of the application. 
+<details><summary>Load</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/f61731c8-2529-4369-a9df-3a00e0e86f1c)</details>
+
+## Editing the text
+The editing part is facilitated thanks to the fact that the line where the cursor is, will be "zoomed". This means that the user will visualize that line with a bigger linespace before and
+after and with a bigger space inbetween words. 
+<details><summary>Editing</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/9fe969ae-a399-4d36-9f8d-ca0d118edc63)</details>
+
+The editing feature is adressed especially to people who need eye tracking devices to move the cursor. 
+
+## SSML features for encoding intonation
+The buttons (_Add Break, Change Pitch, Emphasize_) enable to insert SSML tags between the text for the speech syntesis. 
+<details><summary>Add Break</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/39508a72-aee9-49f7-aa97-c2bd5eb76607)</details>
+<details><summary>Change Pitch</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8)</details>
+<details><summary>Emphasize</summary>![image](https://github.com/ChiaraCalvo/git-exercise/assets/146334030/31dca5c9-76db-4a04-8b6d-3eef8a2f97f8)</details>
+
+## Generation of an audio file 
+An audio file is generated thanks to a selected Text-To-Speech API voice. 
+
+The user can listen to it, pause it and play it. 
+
+## Saving the final audio file 
+The final version of the edited text can be saved as a file in audio format.
+
+
+
 # Tutorials for beginner contributors
 ## How to use Git
 Git is a version control system. It allows you to keep track of changes made to your code and to collaborate with others. To learn more about Git, see [this fundamental beginner tutorial](https://www.youtube.com/watch?v=HVsySz-h9r4).
@@ -91,5 +131,3 @@ Kivy is a framework for building user interfaces. It allows you to build user in
 ## How-to use poetry
 Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
 For a short introduction to poetry, see [this tutorial](https://python-poetry.org/docs/basic-usage/).
-
-Otherwise, here is a video tutorial on how to use poetry: [https://www.youtube.com/watch?v=0f3moPe_bhk](https://www.youtube.com/watch?v=0f3moPe_bhk)
