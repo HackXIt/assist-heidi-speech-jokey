@@ -1,0 +1,30 @@
+<SaveDialog>:
+    filechooser: filechooser
+    filename_input: filename_input
+    BoxLayout:
+        orientation: 'vertical'
+        FileChooserIconView:
+            id: filechooser
+            size_hint_y: 0.9
+            on_selection: root.on_browser_select(filechooser.selection)
+        BoxLayout:
+            size_hint_y: 0.1
+            orientation: "horizontal"
+            Label:
+                text: "Filename:"
+                #size_hint_y: 0.1
+                text_size: self.size
+                halign: "right"
+                valign: "center"
+            TextInput:
+                id: filename_input
+                #size_hint_y: 0.1
+                multiline: False
+        BoxLayout:
+            size_hint_y: 0.1
+            Button:
+                text: "Cancel"
+                on_press: root.dismiss()
+            Button:
+                text: "Save"
+                on_press: root.on_filesave(filechooser.path, filename_input.text)

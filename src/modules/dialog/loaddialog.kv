@@ -1,8 +1,7 @@
 <LoadDialog>:
     load: load_button
     cancel: cancel_button
-    #filebrowser_list: filebrowser_list
-    filebrowser_icon: filebrowser_icon
+    filechooser: filechooser
     label: label
  
     # Providing the orientation
@@ -14,9 +13,10 @@
         orientation: "vertical"
         # Creating Icon view other side
         FileChooserIconView:
-            size_hint_y: .9
-            id: filebrowser_icon
-            on_selection: root.on_browser_select(filebrowser_icon.selection)
+            size_hint_y: 0.9
+            id: filechooser
+            on_selection: root.on_browser_select(filechooser.selection)
+            filters: ["*.txt"]
  
         BoxLayout:
             size_hint_y: 0.1
@@ -27,7 +27,7 @@
             Button:
                 id: cancel_button
                 text: "Cancel"
-                on_release: root.on_filecancel()
+                on_release: root.dismiss()
 
             Button:
                 id: load_button

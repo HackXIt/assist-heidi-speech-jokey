@@ -5,27 +5,29 @@ import os
 
 class LoadDialog(Popup):
     # filebrowser_list = ObjectProperty(None)
-    filebrowser_icon = ObjectProperty(None)
+    label = ObjectProperty(None)
+    filechooser = ObjectProperty(None)
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
 
     def __init__(self, callback, **kwargs):
         super(LoadDialog, self).__init__(**kwargs)
-        self.filebrowser_icon.rootpath = os.path.expanduser("~")
+        self.filechooser.rootpath = os.path.expanduser("~")
         self.callback = callback
 
     def on_browser_select(self, selection):
+        if len(self.filechooser.selection) == 0:
+            return
+        selection = selection[0]
         log.debug(f"Selection: {selection}")
+        self.label.text = selection
     
     def on_fileload(self):
-        selection = self.filebrowser_icon.selection
-        log.debug(f"Selection: {selection}")
-        self.dismiss()
-        if selection:
-            log.info(f"Selected file: {selection}")
-        else:
+        if len(self.filechooser.selection) == 0:
             log.info("No file selected")
-        self.callback(selection)
-
-    def on_filecancel(self):
+            return
+        selection = self.filechooser.selection[0]
+        log.info(f"Selected file: {selection}")
         self.dismiss()
+        self.callback(selection)
+        self.label.text = ""
