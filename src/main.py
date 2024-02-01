@@ -83,4 +83,4 @@ class SpeechJokey(App):
 if __name__ == '__main__':
     if hasattr(sys, '_MEIPASS'):
         resource_add_path(os.path.join(sys._MEIPASS))
-    SpeechJokey().run()
+    SpeechJokey(kv_file="SpeechJokey.kv").run()
