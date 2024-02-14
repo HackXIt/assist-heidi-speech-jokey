@@ -31,9 +31,18 @@ Make sure to configure poetry to install the virtual environment in the project 
 poetry config virtualenvs.in-project true
 ```
 
+### Linux specific dependencies
+
+Please install the following packages first:
+```
+sudo apt-get install xsel xclip
+```
+
+### Python dependency installation
+
 Installing the virtual environment is done by running:
 ```
-poetry install
+poetry install --no-root
 ```
 
 ## Managing Dependencies
