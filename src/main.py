@@ -13,6 +13,9 @@ from modules.util.widget_loader import load_widget
 from api.elevenlabsapi.elevenlabsapi import ElevenLabsTTS
 from settings import app_settings
 
+TMP_FOLDER = 'tmp'
+
+
 class MainScreen(BoxLayout):
     text_input = ObjectProperty(None)
 
@@ -52,7 +55,7 @@ class MainScreen(BoxLayout):
         if isinstance(api, ElevenLabsTTS):
             log.debug(f"Synthesizing: {self.text_input.text[0:10]}...")
             try:
-                api.synthesize(self.text_input.text, os.path.join("tmp/", "tmp.wav"))
+                api.synthesize(self.text_input.text, os.path.join(TMP_FOLDER, "tmp.wav"))
             except Exception as e:
                 log.error(f"Audio generation failed: {e}")
 
@@ -78,6 +81,7 @@ class SpeechJokey(App):
         log.setLevel(LOG_LEVELS["debug"])
         self.title = 'Speech Jokey'
         self.api = None
+        os.makedirs(TMP_FOLDER, exist_ok=True)
         return MainScreen()
 
 if __name__ == '__main__':
