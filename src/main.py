@@ -10,10 +10,8 @@ from kivy.resources import resource_add_path, resource_find
 
 from modules.dialog import loaddialog, savedialog
 from modules.util.widget_loader import load_widget
-from api.elevenlabsapi.elevenlabsapi import ElevenLabsTTS
-from api.elevenlabsapi import elevenlabsapi
-from api.exampleapi import exampleapi
 from settings import app_settings
+from api.api_factory import load_apis
 
 class MainScreen(BoxLayout):
     text_input = ObjectProperty(None)
@@ -44,45 +42,35 @@ class MainScreen(BoxLayout):
             with open(file, 'w') as file:
                 file.write(self.text_input.text)
 
-    def play_audio(self):
+    def on_play(self):
         # Logic to play audio
         pass
 
-    def generate_audio(self):
-        # Logic to save generated voice audio to file
+    def on_synthesize(self):
         api = App.get_running_app().api
-        if isinstance(api, ElevenLabsTTS):
-            log.debug(f"Synthesizing: {self.text_input.text[0:10]}...")
+        if api:
             try:
-                os.makedirs("tmp", exist_ok=True);
-                api.synthesize(self.text_input.text, os.path.join("tmp/", "tmp.wav"))
+                api.synthesize(self.text_input.text, "output_file.wav")
+            except NotImplementedError:
+                print("Synthesize not implemented for this API.")
             except Exception as e:
-                log.error(f"Audio generation failed: {e}")
+                print(f"Error during synthesis: {e}")
 
     def open_settings(self):
         self.settings_popup.open()
-
-    def insert_ssml_tag(self, tag_name):
-        # Logic to insert SSML tags into text
-        pass
-
-    def playback_control(self, action):
-        # Logic to control audio playback
-        pass
 
 class SpeechJokey(App):
     def build(self):
         load_widget(os.path.join(os.path.dirname(loaddialog.__file__), 'loaddialog.kv'))
         load_widget(os.path.join(os.path.dirname(savedialog.__file__), 'savedialog.kv'))
         load_widget(os.path.join(os.path.dirname(app_settings.__file__), 'AppSettingsPopup.kv'))
-        load_widget(os.path.join(os.path.dirname(elevenlabsapi.__file__), 'elevenlabsapi.kv'))
-        load_widget(os.path.join(os.path.dirname(exampleapi.__file__), 'exampleapi.kv'))
         self.global_settings = app_settings.GlobalSettings()
         self.icon = os.path.join(os.curdir, 'speech-jokey.ico')
         Config.set('kivy','window_icon', self.icon)
         log.setLevel(LOG_LEVELS["debug"])
         self.title = 'Speech Jokey'
-        self.api = None
+        self.apis = load_apis()
+        self.api = self.apis.get("exampleapi", None)
         return MainScreen()
 
 if __name__ == '__main__':

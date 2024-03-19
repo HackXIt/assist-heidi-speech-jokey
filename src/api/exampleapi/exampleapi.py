@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.properties import StringProperty, ObjectProperty
-from ..base_settings import BaseApiSettings
+from ..base import BaseApiSettings, BaseApi
 
 # NOTE This class holds the widget properties and logic for the specific API settings view. It also holds the instance of the specific API settings class.
 class ExampleAPIWidget(BoxLayout):
@@ -22,7 +22,6 @@ class ExampleAPIWidget(BoxLayout):
 
 # NOTE This class holds the state of the specific API settings and must be derived from BaseApiSettings, which implements the required Singleton pattern for you.
 class ExampleAPISettings(BaseApiSettings):
-    api_name = 'ExampleAPI'
     example_setting = StringProperty('')
 
     def __init__(self, widget, **kwargs):
@@ -45,11 +44,26 @@ class ExampleAPISettings(BaseApiSettings):
     def save_settings(self): # Settings are stored using the global settings instance
         app_instance = App.get_running_app()
         app_instance.global_settings.update_setting(self.api_name, "example_setting", self.example_setting)
+    
+    def __str__(self) -> str:
+        return f"ExampleAPISettings{{example_setting: {self.example_setting}}}"
 
 # NOTE This class holds the API logic and performs the API calls. When instantiated, the settings class of the API shall be passed.
-class ExampleAPI():
-    def __init__(self, api_settings: ExampleAPISettings):
-        self.api_settings = api_settings
+class ExampleAPI(BaseApi):
+    def __init__(self, settings: ExampleAPISettings):
+        super().__init__(settings)
     
-    def do_stuff(self):
-        print(f"Doing stuff with Example setting: {self.api_settings.example_setting}")
+    # Implement abstract methods of BaseApi
+    def play(self, input: str):
+        # Placeholder implementation
+        pass
+
+    def synthesize(self, input: str, file: str):
+        # Placeholder implementation
+        pass
+    
+    def do_api_specific_stuff(self):
+        print(f"Doing stuff with Example setting: {self.settings.example_setting}")
+    
+    def __str__(self) -> str:
+        return f"ExampleAPI"

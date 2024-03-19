@@ -48,3 +48,36 @@ class BaseApiSettings(ABC, EventDispatcher):
         It should return the settings from the API in JSON format.
         """
         pass
+
+class BaseApi(ABC, EventDispatcher):
+    _instance = None
+
+    @classmethod
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(BaseApi, cls).__new__(cls)
+        return cls._instance
+
+    def __init__(self, settings: BaseApiSettings, **kwargs):
+        super(BaseApi, self).__init__(**kwargs)
+        self.settings = settings
+
+    @abstractmethod
+    def play(self, input: str):
+        """
+        This method must be overridden in derived classes.
+        It should play the audio from the API.
+
+        If the API does not support audio playback, it should raise a NotImplementedError.
+        """
+        pass
+
+    @abstractmethod
+    def synthesize(self, input: str, file: str):
+        """
+        This method must be overridden in derived classes.
+        It should synthesize the text to audio and save it to the file.
+
+        If the API does not support audio synthesis, it should raise a NotImplementedError.
+        """
+        pass
