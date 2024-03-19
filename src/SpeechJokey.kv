@@ -1,87 +1,133 @@
+#:kivy 2.3.0
+
 <MainScreen>:
-    orientation: 'vertical'
-    text_input: text_input
+    md_bg_color: self.theme_cls.secondaryContainerColor
+    
+    MDTopAppBar:
+        type: "small"
+        size_hint_x: 1
+        pos_hint: {"center_x": .5, "top": 1}
+        MDTopAppBarLeadingButtonContainer:
+            MDActionTopAppBarButton:
+                icon: "menu"
+            MDFabButton:
+                icon: "file-upload"
+                style: "standard"
+            MDFabButton:
+                icon: "content-save"
+                style: "standard"
 
-    BoxLayout:
+        MDTopAppBarTitle:
+            text: app.title
+
+        MDTopAppBarTrailingButtonContainer:
+            MDFabButton:
+                icon: "play-circle"
+                style: "standard"
+            MDFabButton:
+                icon: "account-voice"
+                style: "standard"
+    
+    MDBoxLayout:
+        adaptive_size: True
         orientation: 'vertical'
-        size_hint_y: None
-        height: '50dp'
+        
+        MDScrollView:
+            md_bg_color: app.theme_cls.primaryColor
+            MDTextField:
+                id: text_main
+                mode: "filled"
+                hint_text: 'Enter your text here or load from a file...'
 
-        # Toolbar with control buttons
-        BoxLayout:
-            id: toolbar
-            size_hint_y: None
-            height: '50dp'
+    MDBottomAppBar:
+        MDBoxLayout:
             orientation: 'horizontal'
+            MDIcon:
+                icon: "information-outline"
+            MDLabel:
+                id: label_status
+                text: "Uhn tiss Uhn tiss Uhn tiss"
 
-            Button:
-                text: 'Load File'
-                on_press: root.load_file()
+    # BoxLayout:
+    #     orientation: 'vertical'
+    #     size_hint_y: None
+    #     height: '50dp'
 
-            Button:
-                text: 'Save File'
-                on_press: root.save_file()
+    #     # Toolbar with control buttons
+    #     BoxLayout:
+    #         id: toolbar
+    #         size_hint_y: None
+    #         height: '50dp'
+    #         orientation: 'horizontal'
 
-            Button:
-                text: 'Listen'
-                on_press: root.play_audio()
+    #         Button:
+    #             text: 'Load File'
+    #             on_press: root.load_file()
 
-            Button:
-                text: 'Generate'
-                on_press: root.generate_audio()
+    #         Button:
+    #             text: 'Save File'
+    #             on_press: root.save_file()
 
-            Button:
-                text: 'Settings'
-                on_press: root.open_settings()
+    #         Button:
+    #             text: 'Listen'
+    #             on_press: root.play_audio()
 
-    # Adjustable Split View for the text input and additional functionalities
-    Splitter:
-        sizable_from: 'top'
-        orientation: 'vertical'
+    #         Button:
+    #             text: 'Generate'
+    #             on_press: root.generate_audio()
 
-        TextInput:
-            id: text_input
-            multiline: True
-            hint_text: 'Enter your text here or load from a file...'
-            # on_text: root.adjust_split_view()
+    #         Button:
+    #             text: 'Settings'
+    #             on_press: root.open_settings()
 
-        # SSML tag editing tools within the split view
-        BoxLayout:
-            size_hint_y: None
-            height: '50dp'
+    # # Adjustable Split View for the text input and additional functionalities
+    # Splitter:
+    #     sizable_from: 'top'
+    #     orientation: 'vertical'
 
-            Button:
-                text: 'Add Break'
-                on_press: root.insert_ssml_tag('break')
+    #     TextInput:
+    #         id: text_input
+    #         multiline: True
+    #         hint_text: 'Enter your text here or load from a file...'
+    #         # on_text: root.adjust_split_view()
 
-            Button:
-                text: 'Change Pitch'
-                on_press: root.insert_ssml_tag('pitch')
+    #     # SSML tag editing tools within the split view
+    #     BoxLayout:
+    #         size_hint_y: None
+    #         height: '50dp'
 
-            Button:
-                text: 'Emphasize'
-                on_press: root.insert_ssml_tag('emphasis')
+    #         Button:
+    #             text: 'Add Break'
+    #             on_press: root.insert_ssml_tag('break')
 
-    # Playback controls
-    BoxLayout:
-        size_hint_y: None
-        height: '50dp'
+    #         Button:
+    #             text: 'Change Pitch'
+    #             on_press: root.insert_ssml_tag('pitch')
 
-        Button:
-            text: 'Play'
-            on_press: root.playback_control('play')
+    #         Button:
+    #             text: 'Emphasize'
+    #             on_press: root.insert_ssml_tag('emphasis')
 
-        Button:
-            text: 'Pause'
-            on_press: root.playback_control('pause')
+    # # Playback controls
+    # BoxLayout:
+    #     size_hint_y: None
+    #     height: '50dp'
 
-        Button:
-            text: 'Stop'
-            on_press: root.playback_control('stop')
+    #     Button:
+    #         text: 'Play'
+    #         on_press: root.playback_control('play')
 
-    # Status and logs
-    Label:
-        size_hint_y: None
-        height: '30dp'
-        text: 'Status: Idle'
-        id: status_label
+    #     Button:
+    #         text: 'Pause'
+    #         on_press: root.playback_control('pause')
+
+    #     Button:
+    #         text: 'Stop'
+    #         on_press: root.playback_control('stop')
+
+    # # Status and logs
+    # Label:
+    #     size_hint_y: None
+    #     height: '30dp'
+    #     text: 'Status: Idle'
+    #     id: status_label

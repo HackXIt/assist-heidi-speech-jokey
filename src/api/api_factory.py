@@ -17,7 +17,8 @@ class ApiFactory:
 
 # Dynamic loading of APIs based on directory structure
 def load_apis():
-    api_names = [f.name for f in os.scandir("api") if f.is_dir()]
+    # api_names = [name for name in os.listdir("api") if os.path.isdir(os.path.join("api", name))]
+    api_names = ["ExampleAPI"]
     apis = {}
     for name in api_names:
         apis[name] = ApiFactory.get_api(name)
