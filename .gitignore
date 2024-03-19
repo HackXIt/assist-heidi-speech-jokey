@@ -1,6 +1,9 @@
 # VSCode environment
 .vscode/.history
-tmp/
+tmp
+app_settings.json
+speech-jokey.png
+!.github/static/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

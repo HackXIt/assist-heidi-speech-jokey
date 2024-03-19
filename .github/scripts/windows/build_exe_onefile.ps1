@@ -33,6 +33,7 @@ $TargetSpecFile = "$Target.spec"
 
 # Copy SpeechJokey.spec from .github/static to the current directory
 Copy-Item ".github/static/$TargetSpecFile" -Destination "."
+Copy-Item ".github/static/speech-jokey.ico" -Destination "."
 
 # Remove null bytes from spec file (PyInstaller compatibility issue)
 (Get-Content .\$TargetSpecFile) -replace "`0", "" | Set-Content .\$TargetSpecFile
