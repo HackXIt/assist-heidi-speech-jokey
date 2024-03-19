@@ -13,11 +13,17 @@
                 spacing: "4dp"
                 padding: "4dp"
                 MDActionTopAppBarButton:
+                    id: btn_menu
                     icon: "menu"
+                    on_release: root.on_menu_open()
                 MDFabButton:
+                    id: btn_load
                     icon: "file-upload"
+                    on_release: root.on_load_file()
                 MDFabButton:
+                    id: btn_save
                     icon: "content-save"
+                    on_release: root.on_save_file()
 
             MDTopAppBarTitle:
                 text: app.title
@@ -29,9 +35,11 @@
                 MDFabButton:
                     id: btn_play
                     icon: "play-circle"
+                    on_press: root.on_play()
                 MDFabButton:
                     id: btn_synthesize
                     icon: "account-voice"
+                    on_press: root.on_synthesize()
 
         MDScrollView:
             adaptive_height: True
