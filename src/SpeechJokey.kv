@@ -2,51 +2,107 @@
 
 <MainScreen>:
     md_bg_color: self.theme_cls.secondaryContainerColor
-    
-    MDTopAppBar:
-        type: "small"
-        size_hint_x: 1
-        pos_hint: {"center_x": .5, "top": 1}
-        MDTopAppBarLeadingButtonContainer:
-            MDActionTopAppBarButton:
-                icon: "menu"
-            MDFabButton:
-                icon: "file-upload"
-                style: "standard"
-            MDFabButton:
-                icon: "content-save"
-                style: "standard"
 
-        MDTopAppBarTitle:
-            text: app.title
-
-        MDTopAppBarTrailingButtonContainer:
-            MDFabButton:
-                icon: "play-circle"
-                style: "standard"
-            MDFabButton:
-                icon: "account-voice"
-                style: "standard"
-    
     MDBoxLayout:
-        adaptive_size: True
         orientation: 'vertical'
-        
+
+        MDTopAppBar:
+            type: "small"
+            pos_hint: {"center_x": .5, "top": 1}
+            MDTopAppBarLeadingButtonContainer:
+                spacing: "4dp"
+                padding: "4dp"
+                MDActionTopAppBarButton:
+                    icon: "menu"
+                MDFabButton:
+                    icon: "file-upload"
+                MDFabButton:
+                    icon: "content-save"
+
+            MDTopAppBarTitle:
+                text: app.title
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDTopAppBarTrailingButtonContainer:
+                spacing: "4dp"
+                padding: "4dp"
+                MDFabButton:
+                    id: btn_play
+                    icon: "play-circle"
+                MDFabButton:
+                    id: btn_synthesize
+                    icon: "account-voice"
+
         MDScrollView:
-            md_bg_color: app.theme_cls.primaryColor
+            adaptive_height: True
             MDTextField:
                 id: text_main
                 mode: "filled"
-                hint_text: 'Enter your text here or load from a file...'
+                multiline: True
+                size_hint_y: None
+                adaptive_height: True
 
-    MDBottomAppBar:
         MDBoxLayout:
+            adaptive_size: True
             orientation: 'horizontal'
             MDIcon:
                 icon: "information-outline"
             MDLabel:
+                adaptive_width: True
                 id: label_status
                 text: "Uhn tiss Uhn tiss Uhn tiss"
+
+
+# <MainScreen>:
+#     md_bg_color: self.theme_cls.secondaryContainerColor
+    
+#     MDTopAppBar:
+#         type: "small"
+#         size_hint_x: 1
+#         pos_hint: {"center_x": .5, "top": 1}
+#         MDTopAppBarLeadingButtonContainer:
+#             MDActionTopAppBarButton:
+#                 icon: "menu"
+#             MDFabButton:
+#                 padding: dp(16), dp(16)
+#                 icon: "file-upload"
+#                 style: "standard"
+#             MDFabButton:
+#                 padding: dp(16), dp(16)
+#                 icon: "content-save"
+#                 style: "standard"
+
+#         MDTopAppBarTitle:
+#             text: app.title
+
+#         MDTopAppBarTrailingButtonContainer:
+#             MDFabButton:
+#                 icon: "play-circle"
+#                 style: "standard"
+#             MDFabButton:
+#                 icon: "account-voice"
+#                 style: "standard"
+    
+#     MDBoxLayout:
+#         adaptive_size: True
+#         orientation: 'vertical'
+        
+#         MDScrollView:
+#             md_bg_color: app.theme_cls.primaryColor
+#             MDTextField:
+#                 id: text_main
+#                 multiline: True
+#                 mode: "filled"
+#                 hint_text: 'Enter your text here or load from a file...'
+
+#     MDBottomAppBar:
+#         MDBoxLayout:
+#             orientation: 'horizontal'
+            # MDIcon:
+            #     icon: "information-outline"
+            # MDLabel:
+            #     id: label_status
+            #     text: "Uhn tiss Uhn tiss Uhn tiss"
 
     # BoxLayout:
     #     orientation: 'vertical'
