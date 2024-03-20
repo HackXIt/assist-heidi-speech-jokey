@@ -1,7 +1,7 @@
-# from kivy.app import App
 # Kivy
+from kivy.app import App
 from kivy.properties import ObjectProperty, StringProperty
-from kivy.logger import Logger as log, LOG_LEVELS
+from kivy.logger import Logger as log
 # KivyMD
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.menu import MDDropdownMenu
@@ -9,15 +9,18 @@ from kivymd.uix.filemanager import MDFileManager
 # stdlib
 import os
 import sys
-
 # Custom
-from modules.util.widget_loader import load_widget
-from api.api_factory import load_apis
+from modules.dialog.exitdialog import ExitDialog
 
 class MainScreen(MDScreen):
     title = StringProperty()
     text_input = ObjectProperty(None)
-    menu_options = ["Settings", "About", "Exit"]
+    # FIXME The values of this dictionary needs to be kept in sync with the screen names in main.py (Unfortunately)
+    menu_options = {
+        "Settings": "settings",
+        "About": "about",
+        "Exit": None # NOTE Exit just closes the app and doesn't have an associated screen
+    }
     supported_text_files = ["txt", "md", "rst"]
 
     def __init__(self, title: str, **kwargs):
@@ -42,7 +45,7 @@ class MainScreen(MDScreen):
             {
                 "text": option,
                 "on_release": lambda x=option: self.menu_callback(x),
-            } for option in self.menu_options
+            } for option in self.menu_options.keys()
         ]
         MDDropdownMenu(
             caller=self.ids.btn_menu, items=menu_items
@@ -50,12 +53,12 @@ class MainScreen(MDScreen):
     
     def menu_callback(self, text_item):
         self.manager.transition.direction = 'left'
-        if text_item == "Settings":
-            self.manager.current = "settings"
-        elif text_item == "About":
-            self.manager.current = "about"
-        elif text_item == "Exit":
-            sys.exit(0)
+        if text_item not in self.menu_options.keys():
+            log.error(f"{self.__class__.__name__}: Invalid menu option: {text_item}")
+            return
+        if text_item == "Exit":
+            ExitDialog().open()
+        self.manager.current = self.menu_options[text_item]
 
     def on_load_file(self):
         # Open dialog
@@ -108,18 +111,27 @@ class MainScreen(MDScreen):
                 file.write(self.ids.text_main.text)
 
     def on_play(self):
-        # Logic to play audio
-        pass
+        # TODO Implement audio playback (this is mostly a placeholder without a backend implementation yet)
+        api = App.get_running_app().api
+        if api:
+            try:
+                api.play(self.text_input.text)
+            except NotImplementedError:
+                log.error(f"{self.__class__.__name__}: Audio playback not implemented for this API.")
+            except Exception as e:
+                log.error(f"{self.__class__.__name__}: Error during playback: {e}")
 
     def on_synthesize(self):
+        # TODO Implement text to speech synthesis (this is mostly a placeholder without a backend implementation yet)
         api = App.get_running_app().api
         if api:
             try:
                 api.synthesize(self.text_input.text, "output_file.wav")
             except NotImplementedError:
-                print("Synthesize not implemented for this API.")
+                msg = "Text to speech synthesis not implemented for this API."
+                log.error(f"{self.__class__.__name__}: {msg}")
+                self.label_status.text = msg
             except Exception as e:
-                print(f"Error during synthesis: {e}")
-
-    def open_settings(self):
-        self.settings_popup.open()
+                msg = f"Error during synthesis"
+                log.error(f"{self.__class__.__name__}: {msg}: {e}")
+                self.ids.label_status.text = msg
