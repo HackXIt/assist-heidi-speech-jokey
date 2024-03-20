@@ -1,14 +1,18 @@
+# Kivy
 from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.event import EventDispatcher
 from kivy.logger import Logger as log
+# KivyMD
+from kivymd.uix.screen import MDScreen
+# stdlib
 import os
 import importlib
 import inspect
 import json
 from pathlib import Path
-
+# Custom
 from api.base import BaseApiSettings
 from modules.util.widget_loader import load_widget
 
@@ -64,6 +68,7 @@ class GlobalSettings(EventDispatcher):
         self._settings = self._default_settings.copy()
         self.save_settings()
 
+""" OLD
 class AppSettingsPopup(Popup):
     settings_container = ObjectProperty(None)
     api_settings_container = ObjectProperty(None)
@@ -147,3 +152,4 @@ class AppSettingsPopup(Popup):
         if self.api_settings_container is not None:
             self.settings_container.remove_widget(self.api_settings_container)
             self.api_settings_container = ObjectProperty(None)
+"""
