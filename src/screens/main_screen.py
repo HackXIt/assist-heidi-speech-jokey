@@ -76,7 +76,7 @@ class MainScreen(MDScreen):
         self.exit_manager()
     
     def exit_manager(self, *args):
-        if all([self.last_path, self.opened_file]) and os.path.isfile(os.path.join(self.last_path, self.opened_file)):
+        if all([self.last_path, self.opened_file]):
             file = os.path.join(self.last_path, self.opened_file)
             self.load_textfile(file)
         else:
@@ -102,6 +102,9 @@ class MainScreen(MDScreen):
     def load_textfile(self, file: str):
         if file is None:
             log.error("%s: No file selected to load.", self.__class__.__name__)
+            return
+        if not os.path.isfile(file):
+            log.error("%s: Selection is not a file: %s", self.__class__.__name__, file)
             return
         file_base, file_ext = os.path.splitext(file)
         log.debug("%s: File: %s - Extension: %s", self.__class__.__name__, file_base, file_ext)
