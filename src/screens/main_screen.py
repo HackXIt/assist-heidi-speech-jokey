@@ -105,6 +105,8 @@ class MainScreen(MDScreen):
         log.debug("%s: File: %s - Extension: %s", self.__class__.__name__, file_base, file_ext)
         if file_ext[1:] not in self.supported_text_files: # NOTE [1:] Skip the leading period
             log.error("%s: Unsupported file type: %s. Supported types: %s", self.__class__.__name__, file_ext, self.supported_text_files)
+            self.opened_file = None
+            self.ids.text_main.text = ""
             return
         # FIXME This is not handling file encoding properly and will cause issues with non-ASCII characters (e.g. mutated vowels such as á, é, í, ó, ú, etc.)
         with open(os.path.abspath(file), 'r') as file:
