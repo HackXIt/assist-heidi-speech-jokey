@@ -81,7 +81,7 @@ class SpeechJokey(MDApp):
             # panel.ids.content.height += child.height if not panel.is_open else -child.height
             # panel.parent.height += child.height if not panel.is_open else -child.height
             # panel.parent.parent.height += child.height if not panel.is_open else -child.height
-         os.makedirs(TMP_FOLDER, exist_ok=True)
+        os.makedirs(TMP_FOLDER, exist_ok=True)
 
 if __name__ == '__main__':
     if hasattr(sys, '_MEIPASS'):
