@@ -73,7 +73,9 @@ class MainScreen(MDScreen):
     def select_path(self, path):
         log.info(f"{self.__class__.__name__}: Selected path: {path}")
         if os.path.isfile(path):
+            self.opened_file = os.path.basename(path)
             self.last_path = os.path.dirname(path)
+            log.debug(f"{self.__class__.__name__}: File: {self.opened_file} - Path: {self.last_path}")
         elif os.path.isdir(path):
             self.last_path = path
         else:
@@ -81,9 +83,9 @@ class MainScreen(MDScreen):
         self.exit_manager()
     
     def exit_manager(self, *args):
-        if self.last_path is not None and os.path.isfile(self.last_path):
+        if self.last_path is not None and os.path.isfile(os.path.join(self.last_path, self.opened_file)):
             self.opened_file = self.last_path
-            self.load_textfile(self.last_path)
+            self.load_textfile(os.path.join(self.last_path, self.opened_file))
         else:
             log.error(f"{self.__class__.__name__}: No file selected. Last path: {self.last_path}")
         self.manager_open = False
