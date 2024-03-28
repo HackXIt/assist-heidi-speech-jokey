@@ -23,6 +23,8 @@ from modules.util.widget_loader import load_widget
 from settings.app_settings import GlobalSettings 
 from api.api_factory import load_apis
 
+# FIXME This folder shall always be created in the location of the executable, but currently will always be created in the current working directory
+# NOTE Need to differentiate launch environment (Release vs. Debug) - where one gets executed via python, the other via deployed executable
 TMP_FOLDER = 'tmp'
 
 class TrailingPressedIconButton(
