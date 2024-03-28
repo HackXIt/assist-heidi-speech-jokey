@@ -76,7 +76,7 @@ class MainScreen(MDScreen):
         self.exit_manager()
     
     def exit_manager(self, *args):
-        if self.last_path is not None and os.path.isfile(os.path.join(self.last_path, self.opened_file)):
+        if self.last_path is not None and self.opened_file is not None and os.path.isfile(os.path.join(self.last_path, self.opened_file)):
             file = os.path.join(self.last_path, self.opened_file)
             self.load_textfile(file)
         else:
