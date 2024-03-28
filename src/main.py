@@ -23,6 +23,8 @@ from modules.util.widget_loader import load_widget
 from settings.app_settings import GlobalSettings 
 from api.api_factory import load_apis
 
+TMP_FOLDER = 'tmp'
+
 class TrailingPressedIconButton(
     ButtonBehavior, RotateBehavior, MDListItemTrailingIcon
 ):
@@ -79,8 +81,9 @@ class SpeechJokey(MDApp):
             # panel.ids.content.height += child.height if not panel.is_open else -child.height
             # panel.parent.height += child.height if not panel.is_open else -child.height
             # panel.parent.parent.height += child.height if not panel.is_open else -child.height
+         os.makedirs(TMP_FOLDER, exist_ok=True)
 
 if __name__ == '__main__':
     if hasattr(sys, '_MEIPASS'):
         resource_add_path(os.path.join(sys._MEIPASS))
-    SpeechJokey().run()
+    SpeechJokey(kv_file="SpeechJokey.kv").run()
