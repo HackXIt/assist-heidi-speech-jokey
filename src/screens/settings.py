@@ -13,4 +13,5 @@ class Settings(MDScreen):
         super(Settings, self).__init__(*args, **kwargs)
         self.title = title
         log.debug(f"{self.__class__.__name__}: API: {api}")
-        self.ids.settings_container.add_widget(api)
+        if api is not None:
+            self.ids.settings_container.add_widget(api)
