@@ -41,17 +41,17 @@ class GlobalSettings(EventDispatcher):
     def save_settings(self):
         with open(self._settings_file, 'w') as file:
             json.dump(self._settings, file, indent=4)
-            log.info(f"{self.__class__.__name__}: Settings saved: {self._settings_file}")
+            log.info("%s: Settings saved: %s", self.__class__.__name__, self._settings_file)
     
     def load_settings(self):
         if os.path.exists(self._settings_file):
             with open(self._settings_file, 'r') as file:
                 self._settings = json.load(file)
         else:
-            log.error(f"{self.__class__.__name__}: Settings file does not exist. Reset or save is required.")
+            log.error("%s: Settings file does not exist. Reset or save is required.", self.__class__.__name__)
 
     def update_setting(self, api_name, key, value):
-        log.debug(f"{self.__class__.__name__}: Update {api_name}: {key} to '{value}'.")
+        log.debug("%s: Update %s: %s to '%s'.", self.__class__.__name__, api_name, key, value)
         if api_name in self._settings.keys():
             self._settings[api_name][key] = value
             self.save_settings()
@@ -61,7 +61,7 @@ class GlobalSettings(EventDispatcher):
 
     def get_setting(self, api_name, key, default=None):
         value = self._settings.get(api_name, {}).get(key, default)
-        log.debug(f"{self.__class__.__name__}: Load {key}: {value}")
+        log.debug("%s: Load %s: %s", self.__class__.__name__, key, value)
         return value
     
     def reset(self):

@@ -19,7 +19,7 @@ class LoadDialog(Popup):
         if len(self.filechooser.selection) == 0:
             return
         selection = selection[0]
-        log.debug(f"Selection: {selection}")
+        log.debug("Selection: %s", selection)
         self.label.text = selection
     
     def on_fileload(self):
@@ -27,7 +27,7 @@ class LoadDialog(Popup):
             log.info("No file selected")
             return
         selection = self.filechooser.selection[0]
-        log.info(f"Selected file: {selection}")
+        log.info("Selected file: %s", selection)
         self.dismiss()
         self.callback(selection)
         self.label.text = ""

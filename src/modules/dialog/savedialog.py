@@ -18,7 +18,7 @@ class SaveDialog(Popup):
     def on_browser_select(self, selection):
         if len(selection) == 0:
             return
-        log.debug(f"File selected: {selection[0]}")
+        log.debug("File selected: %s", selection[0])
         self.filename_input.text = os.path.basename(selection[0])
 
     def on_filesave(self, path, filename):

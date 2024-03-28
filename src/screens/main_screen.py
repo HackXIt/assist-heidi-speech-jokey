@@ -33,12 +33,13 @@ class MainScreen(MDScreen):
         self.title = title
         self.last_path = None
         self.opened_file = None
-        self.manager_open = False
+        self.manager_open = False # FIXME This is used to keep track of the file manager state (open or closed) but is not currently used
         self.file_manager = MDFileManager(
             exit_manager=self.exit_manager,
             select_path=self.select_path,
             icon_selection_button="folder-marker"
         )
+        # TODO Adjust the scrollbar within MDFileManager to be more visible (not just a thin line)
  
     def on_menu_open(self):
         menu_items = [
@@ -54,15 +55,34 @@ class MainScreen(MDScreen):
     def menu_callback(self, text_item):
         self.manager.transition.direction = 'left'
         if text_item not in self.menu_options.keys():
-            log.error(f"{self.__class__.__name__}: Invalid menu option: {text_item}")
+            log.error("%s: Invalid menu option: %s", self.__class__.__name__, text_item)
             return
         if text_item == "Exit":
             ExitDialog().open()
         self.manager.current = self.menu_options[text_item]
 
+    def select_path(self, path):
+        log.info("%s: Selected path: %s", self.__class__.__name__, path)
+        if os.path.isfile(path):
+            self.opened_file = os.path.basename(path)
+            self.last_path = os.path.dirname(path)
+            log.debug("%s: File: %s - Path: %s", self.__class__.__name__, self.opened_file, self.last_path)
+        elif os.path.isdir(path):
+            self.last_path = path
+        else:
+            log.error("%s: Invalid path selected: %s", self.__class__.__name__, path)
+        self.exit_manager()
+    
+    def exit_manager(self, *args):
+        if self.last_path is not None and os.path.isfile(os.path.join(self.last_path, self.opened_file)):
+            file = os.path.join(self.last_path, self.opened_file)
+            self.load_textfile(file)
+        else:
+            log.error("%s: No file selected. Last path: %s", self.__class__.__name__, self.last_path)
+        self.manager_open = False
+        self.file_manager.close()
+
     def on_load_file(self):
-        # Open dialog
-        # self.file_load_popup.open()
         if self.last_path is not None:
             path = self.last_path
         else:
@@ -70,47 +90,36 @@ class MainScreen(MDScreen):
         self.file_manager.show(path)
         self.manager_open = True
 
-    def select_path(self, path):
-        log.info(f"{self.__class__.__name__}: Selected path: {path}")
-        if os.path.isfile(path):
-            self.opened_file = os.path.basename(path)
-            self.last_path = os.path.dirname(path)
-            log.debug(f"{self.__class__.__name__}: File: {self.opened_file} - Path: {self.last_path}")
-        elif os.path.isdir(path):
-            self.last_path = path
-        else:
-            log.error(f"{self.__class__.__name__}: Invalid path selected: {path}")
-        self.exit_manager()
-    
-    def exit_manager(self, *args):
-        if self.last_path is not None and os.path.isfile(os.path.join(self.last_path, self.opened_file)):
-            self.opened_file = self.last_path
-            self.load_textfile(os.path.join(self.last_path, self.opened_file))
-        else:
-            log.error(f"{self.__class__.__name__}: No file selected. Last path: {self.last_path}")
-        self.manager_open = False
-        self.file_manager.close()
-
     def on_save_file(self):
-        if self.opened_file is not None:
-            self.save_textfile(self.opened_file)
-        else:
-            log.error(f"{self.__class__.__name__}: No file opened to save.")
+        if self.last_path is None or self.opened_file is None:
+            log.error("%s: No file opened to save.", self.__class__.__name__)
+            return
+        file = os.path.join(self.last_path, self.opened_file)
+        self.save_textfile(file)
 
     def load_textfile(self, file: str):
-        file_ext = file.split('.')[-1]
-        if file_ext not in self.supported_text_files:
-            log.error(f"{self.__class__.__name__}: Unsupported file type: {file_ext}")
+        if file is None:
+            log.error("%s: No file selected to load.", self.__class__.__name__)
             return
+        file_base, file_ext = os.path.splitext(file)
+        log.debug("%s: File: %s - Extension: %s", self.__class__.__name__, file_base, file_ext)
+        if file_ext[1:] not in self.supported_text_files: # NOTE [1:] Skip the leading period
+            log.error("%s: Unsupported file type: %s. Supported types: %s", self.__class__.__name__, file_ext, self.supported_text_files)
+            return
+        # FIXME This is not handling file encoding properly and will cause issues with non-ASCII characters (e.g. mutated vowels such as á, é, í, ó, ú, etc.)
         with open(os.path.abspath(file), 'r') as file:
             text = file.read()
-            log.info(f"{self.__class__.__name__}: Text: {text[0:40]}...")
+            log.info("%s: Loaded file: %s", self.__class__.__name__, file)
+            log.debug("%s: Text: %s...", self.__class__.__name__, text[0:40])
             self.ids.text_main.text = text
 
     def save_textfile(self, file: str):
-        if file is not None:
-            with open(file, 'w') as file:
-                file.write(self.ids.text_main.text)
+        if file is None:
+            log.error("%s: No file selected to save.", self.__class__.__name__)
+            return
+        with open(os.path.abspath(file), 'w') as file:
+            file.write(self.ids.text_main.text)
+            log.info("%s: Saved file: %s", self.__class__.__name__, file)
 
     def on_play(self):
         # TODO Implement audio playback (this is mostly a placeholder without a backend implementation yet)
@@ -119,9 +128,9 @@ class MainScreen(MDScreen):
             try:
                 api.play(self.text_input.text)
             except NotImplementedError:
-                log.error(f"{self.__class__.__name__}: Audio playback not implemented for this API.")
+                log.error("%s: Audio playback not implemented for this API.", self.__class__.__name__)
             except Exception as e:
-                log.error(f"{self.__class__.__name__}: Error during playback: {e}")
+                log.error("%s: Error during playback: %s", self.__class__.__name__, e)
 
     def on_synthesize(self):
         # TODO Implement text to speech synthesis (this is mostly a placeholder without a backend implementation yet)
@@ -131,9 +140,9 @@ class MainScreen(MDScreen):
                 api.synthesize(self.text_input.text, "output_file.wav")
             except NotImplementedError:
                 msg = "Text to speech synthesis not implemented for this API."
-                log.error(f"{self.__class__.__name__}: {msg}")
+                log.error("%s: %s", self.__class__.__name__, msg)
                 self.label_status.text = msg
             except Exception as e:
-                msg = f"Error during synthesis"
-                log.error(f"{self.__class__.__name__}: {msg}: {e}")
+                msg = "Error during synthesis"
+                log.error("%s: %s: %s", self.__class__.__name__, msg, e)
                 self.ids.label_status.text = msg

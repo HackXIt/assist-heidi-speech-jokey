@@ -22,7 +22,7 @@ class ExampleAPIWidget(MDExpansionPanel):
     
     def on_change(self, id: str):
         if id not in self.ids:
-            log.error(f"{self.__class__.__name__}: Invalid setting ID: {id}")
+            log.error("%s: Invalid setting ID: %s", self.__class__.__name__, id)
         # NOTE I'd recommend a more sophisticated way of determining which widget corresponds to which setting
         # for the sake of simplicity, I'll use the ID and the type of the widget
         if self.ids[id] is MDCheckbox:
