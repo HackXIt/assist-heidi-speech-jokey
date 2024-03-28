@@ -48,9 +48,10 @@ class MainScreen(MDScreen):
                 "on_release": lambda x=option: self.menu_callback(x),
             } for option in self.menu_options.keys()
         ]
-        MDDropdownMenu(
+        self.drop_menu = MDDropdownMenu(
             caller=self.ids.btn_menu, items=menu_items
-        ).open()
+        )
+        self.drop_menu.open()
     
     def menu_callback(self, text_item):
         self.manager.transition.direction = 'left'
@@ -60,6 +61,7 @@ class MainScreen(MDScreen):
         if text_item == "Exit":
             ExitDialog().open()
         self.manager.current = self.menu_options[text_item]
+        self.drop_menu.dismiss()
 
     def select_path(self, path):
         log.info("%s: Selected path: %s", self.__class__.__name__, path)
