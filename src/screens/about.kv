@@ -1,0 +1,28 @@
+#:kivy 2.3.0
+
+<About>:
+    md_bg_color: self.theme_cls.secondaryContainerColor
+
+    MDBoxLayout:
+        orientation: "vertical"
+        MDTopAppBar:
+            type: "small"
+            pos_hint: {"center_x": .5, "top": 1}
+            MDTopAppBarLeadingButtonContainer:
+                spacing: "4dp"
+                padding: "4dp"
+                MDActionTopAppBarButton:
+                    id: btn_back
+                    icon: "arrow-left"
+                    on_release:
+                        root.manager.transition.direction = 'right'
+                        root.manager.current = "main"
+            MDTopAppBarTitle:
+                text: root.title
+                pos_hint: {"center_x": .5, "center_y": .5}
+        MDScrollView:
+            adaptive_height: True
+            MDTextField:
+                text: root.about_text
+                multiline: True
+                readonly: True

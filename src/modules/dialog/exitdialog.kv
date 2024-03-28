@@ -1,0 +1,26 @@
+#:kivy 2.3.0
+
+<ExitDialog>
+    MDDialogIcon:
+        icon: "exit-run"
+    MDDialogHeadlineText:
+        text: "Exit application?"
+    MDDialogSupportingText:
+        text: "You might have unsaved changes. Are you sure you want to exit?"
+    MDDialogButtonContainer:
+        spacing: "8dp"
+        MDButton:
+            style: "elevated"
+            on_release: root.on_cancel()
+            MDButtonIcon:
+                icon: "cancel"
+            MDButtonText:
+                text: "Cancel"
+
+        MDButton:
+            style: "elevated"
+            on_release: root.on_exit()
+            MDButtonIcon:
+                icon: "close-circle"
+            MDButtonText:
+                text: "Exit"

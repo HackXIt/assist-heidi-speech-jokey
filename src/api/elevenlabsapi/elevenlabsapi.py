@@ -11,7 +11,7 @@ from kivy.logger import Logger as log
 from kivy.uix.boxlayout import BoxLayout
 import pyaudio
 from typing import Iterator, List
-from ..base_settings import BaseApiSettings
+from ..base import BaseApiSettings
 
 class ElevenLabsWidget(BoxLayout):
     api_key_input = ObjectProperty(None)

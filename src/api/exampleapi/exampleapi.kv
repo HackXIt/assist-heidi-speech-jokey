@@ -1,6 +1,70 @@
+#:kivy 2.3.0
+
 <ExampleAPIWidget>:
-    example_setting_input: example_setting_input
-    TextInput:
-        id: example_setting_input
-        text_hint: "Hello World!"
-        on_text_validate: root.save_settings
+    MDExpansionPanelHeader:
+        MDListItem:
+            theme_bg_color: "Custom"
+            md_bg_color: self.theme_cls.surfaceContainerLowColor
+            ripple_effect: False
+            MDListItemSupportingText:
+                text: "Example API Settings"
+            TrailingPressedIconButton:
+                id: chevron
+                icon: "chevron-right"
+                on_release: app.tap_expansion_chevron(root, chevron)
+    MDExpansionPanelContent:
+        id: content
+        orientation: "vertical"
+        padding: "12dp", 0, "12dp", "12dp"
+        MDLabel:
+            text: "Your example settings"
+            adaptive_height: True
+            padding_x: "16dp"
+            padding_y: "12dp"
+        MDListItem:
+            orientation: "horizontal"
+            MDLabel:
+                text: "Setting 1 (Checkbox)"
+            MDCheckbox:
+                id: setting_1
+                on_state: root.on_change("setting_1")
+        MDListItem:
+            orientation: "horizontal"
+            MDLabel:
+                text: "Setting 2 (Textfield)"
+            MDTextField:
+                mode: "outlined"
+                id: setting_2
+                on_text_validate: root.on_change("setting_2")
+                MDTextFieldLeadingIcon:
+                    icon: "pencil"
+                MDTextFieldHintText:
+                    text: "Enter your setting here"
+                MDTextFieldHelperText:
+                    text: "This is an example setting input field"
+                    mode: "persistent"
+                MDTextFieldTrailingIcon:
+                    icon: "alert-circle-outline"
+                    opacity: 0 # This icon is not visible but can be set to visible on error
+                MDTextFieldMaxLengthText:
+                    max_text_length: 10 # Limit input length
+        MDListItem:
+            orientation: "horizontal"
+            MDLabel:
+                text: "Setting 3 (Slider)"
+            MDSlider:
+                id: setting_3
+                min: 0
+                max: 100
+                value: 50
+                step: 1
+                on_value: root.on_change("setting_3")
+                MDSliderHandle:
+                MDSliderValueLabel:
+        MDListItem:
+            orientation: "horizontal"
+            MDLabel:
+                text: "Setting 4 (Switch)"
+            MDSwitch:
+                id: setting_4
+                on_active: root.on_change("setting_4")

@@ -1,87 +1,197 @@
-<MainScreen>:
-    orientation: 'vertical'
-    text_input: text_input
+#:kivy 2.3.0
 
-    BoxLayout:
+<AppScreen>:
+    md_bg_color: self.theme_cls.secondaryContainerColor
+
+    MDBoxLayout:
         orientation: 'vertical'
-        size_hint_y: None
-        height: '50dp'
 
-        # Toolbar with control buttons
-        BoxLayout:
-            id: toolbar
-            size_hint_y: None
-            height: '50dp'
+        MDTopAppBar:
+            type: "small"
+            pos_hint: {"center_x": .5, "top": 1}
+            MDTopAppBarLeadingButtonContainer:
+                spacing: "4dp"
+                padding: "4dp"
+                MDActionTopAppBarButton:
+                    id: btn_menu
+                    icon: "menu"
+                    on_release: root.on_menu_open()
+                MDFabButton:
+                    id: btn_load
+                    icon: "file-upload"
+                    on_release: root.on_load_file()
+                MDFabButton:
+                    id: btn_save
+                    icon: "content-save"
+                    on_release: root.on_save_file()
+
+            MDTopAppBarTitle:
+                text: root.title
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDTopAppBarTrailingButtonContainer:
+                spacing: "4dp"
+                padding: "4dp"
+                MDFabButton:
+                    id: btn_play
+                    icon: "play-circle"
+                    on_press: root.on_play()
+                MDFabButton:
+                    id: btn_synthesize
+                    icon: "account-voice"
+                    on_press: root.on_synthesize()
+
+        MDScrollView:
+            adaptive_height: True
+            MDTextField:
+                id: text_main
+                mode: "filled"
+                multiline: True
+                size_hint_y: None
+                adaptive_height: True
+
+        MDBoxLayout:
+            adaptive_size: True
             orientation: 'horizontal'
+            MDIcon:
+                icon: "information-outline"
+            MDLabel:
+                adaptive_width: True
+                id: label_status
+                text: "Uhn tiss Uhn tiss Uhn tiss"
 
-            Button:
-                text: 'Load File'
-                on_press: root.load_file()
 
-            Button:
-                text: 'Save File'
-                on_press: root.save_file()
+# <MainScreen>:
+#     md_bg_color: self.theme_cls.secondaryContainerColor
+    
+#     MDTopAppBar:
+#         type: "small"
+#         size_hint_x: 1
+#         pos_hint: {"center_x": .5, "top": 1}
+#         MDTopAppBarLeadingButtonContainer:
+#             MDActionTopAppBarButton:
+#                 icon: "menu"
+#             MDFabButton:
+#                 padding: dp(16), dp(16)
+#                 icon: "file-upload"
+#                 style: "standard"
+#             MDFabButton:
+#                 padding: dp(16), dp(16)
+#                 icon: "content-save"
+#                 style: "standard"
 
-            Button:
-                text: 'Listen'
-                on_press: root.play_audio()
+#         MDTopAppBarTitle:
+#             text: app.title
 
-            Button:
-                text: 'Generate'
-                on_press: root.generate_audio()
+#         MDTopAppBarTrailingButtonContainer:
+#             MDFabButton:
+#                 icon: "play-circle"
+#                 style: "standard"
+#             MDFabButton:
+#                 icon: "account-voice"
+#                 style: "standard"
+    
+#     MDBoxLayout:
+#         adaptive_size: True
+#         orientation: 'vertical'
+        
+#         MDScrollView:
+#             md_bg_color: app.theme_cls.primaryColor
+#             MDTextField:
+#                 id: text_main
+#                 multiline: True
+#                 mode: "filled"
+#                 hint_text: 'Enter your text here or load from a file...'
 
-            Button:
-                text: 'Settings'
-                on_press: root.open_settings()
+#     MDBottomAppBar:
+#         MDBoxLayout:
+#             orientation: 'horizontal'
+            # MDIcon:
+            #     icon: "information-outline"
+            # MDLabel:
+            #     id: label_status
+            #     text: "Uhn tiss Uhn tiss Uhn tiss"
 
-    # Adjustable Split View for the text input and additional functionalities
-    Splitter:
-        sizable_from: 'top'
-        orientation: 'vertical'
+    # BoxLayout:
+    #     orientation: 'vertical'
+    #     size_hint_y: None
+    #     height: '50dp'
 
-        TextInput:
-            id: text_input
-            multiline: True
-            hint_text: 'Enter your text here or load from a file...'
-            # on_text: root.adjust_split_view()
+    #     # Toolbar with control buttons
+    #     BoxLayout:
+    #         id: toolbar
+    #         size_hint_y: None
+    #         height: '50dp'
+    #         orientation: 'horizontal'
 
-        # SSML tag editing tools within the split view
-        BoxLayout:
-            size_hint_y: None
-            height: '50dp'
+    #         Button:
+    #             text: 'Load File'
+    #             on_press: root.load_file()
 
-            Button:
-                text: 'Add Break'
-                on_press: root.insert_ssml_tag('break')
+    #         Button:
+    #             text: 'Save File'
+    #             on_press: root.save_file()
 
-            Button:
-                text: 'Change Pitch'
-                on_press: root.insert_ssml_tag('pitch')
+    #         Button:
+    #             text: 'Listen'
+    #             on_press: root.play_audio()
 
-            Button:
-                text: 'Emphasize'
-                on_press: root.insert_ssml_tag('emphasis')
+    #         Button:
+    #             text: 'Generate'
+    #             on_press: root.generate_audio()
 
-    # Playback controls
-    BoxLayout:
-        size_hint_y: None
-        height: '50dp'
+    #         Button:
+    #             text: 'Settings'
+    #             on_press: root.open_settings()
 
-        Button:
-            text: 'Play'
-            on_press: root.playback_control('play')
+    # # Adjustable Split View for the text input and additional functionalities
+    # Splitter:
+    #     sizable_from: 'top'
+    #     orientation: 'vertical'
 
-        Button:
-            text: 'Pause'
-            on_press: root.playback_control('pause')
+    #     TextInput:
+    #         id: text_input
+    #         multiline: True
+    #         hint_text: 'Enter your text here or load from a file...'
+    #         # on_text: root.adjust_split_view()
 
-        Button:
-            text: 'Stop'
-            on_press: root.playback_control('stop')
+    #     # SSML tag editing tools within the split view
+    #     BoxLayout:
+    #         size_hint_y: None
+    #         height: '50dp'
 
-    # Status and logs
-    Label:
-        size_hint_y: None
-        height: '30dp'
-        text: 'Status: Idle'
-        id: status_label
+    #         Button:
+    #             text: 'Add Break'
+    #             on_press: root.insert_ssml_tag('break')
+
+    #         Button:
+    #             text: 'Change Pitch'
+    #             on_press: root.insert_ssml_tag('pitch')
+
+    #         Button:
+    #             text: 'Emphasize'
+    #             on_press: root.insert_ssml_tag('emphasis')
+
+    # # Playback controls
+    # BoxLayout:
+    #     size_hint_y: None
+    #     height: '50dp'
+
+    #     Button:
+    #         text: 'Play'
+    #         on_press: root.playback_control('play')
+
+    #     Button:
+    #         text: 'Pause'
+    #         on_press: root.playback_control('pause')
+
+    #     Button:
+    #         text: 'Stop'
+    #         on_press: root.playback_control('stop')
+
+    # # Status and logs
+    # Label:
+    #     size_hint_y: None
+    #     height: '30dp'
+    #     text: 'Status: Idle'
+    #     id: status_label

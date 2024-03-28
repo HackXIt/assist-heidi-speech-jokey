@@ -1,15 +1,19 @@
+# Kivy
 from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.event import EventDispatcher
 from kivy.logger import Logger as log
+# KivyMD
+from kivymd.uix.screen import MDScreen
+# stdlib
 import os
 import importlib
 import inspect
 import json
 from pathlib import Path
-
-from api.base_settings import BaseApiSettings
+# Custom
+from api.base import BaseApiSettings
 from modules.util.widget_loader import load_widget
 
 def none_settings():
@@ -64,6 +68,7 @@ class GlobalSettings(EventDispatcher):
         self._settings = self._default_settings.copy()
         self.save_settings()
 
+""" OLD
 class AppSettingsPopup(Popup):
     settings_container = ObjectProperty(None)
     api_settings_container = ObjectProperty(None)
@@ -109,14 +114,15 @@ class AppSettingsPopup(Popup):
 
     def load_api_settings_widget(self, api_name: str, settings_class: BaseApiSettings):
         try:
+            # FIXME Doesn't work in packaged build due to paths - using direct load in the beginning instead
             # Get the module in which the class is defined
-            module = inspect.getmodule(settings_class)
-            if module is None:
-                raise ImportError(f"Module for class {settings_class.__name__} not found")
+            # module = inspect.getmodule(settings_class)
+            # if module is None:
+            #     raise ImportError(f"Module for class {settings_class.__name__} not found")
 
             # Load the KV file
-            kv_file_path = os.path.join(os.path.dirname(module.__file__), f"{module.__file__.replace('.py', '.kv')}")
-            load_widget(kv_file_path)
+            # kv_file_path = os.path.join(os.path.dirname(module.__file__), f"{module.__file__.replace('.py', '.kv')}")
+            # load_widget(kv_file_path)
 
             # Load the settings widget
             self.load_settings_widget(settings_class.get_settings_widget())
@@ -146,3 +152,4 @@ class AppSettingsPopup(Popup):
         if self.api_settings_container is not None:
             self.settings_container.remove_widget(self.api_settings_container)
             self.api_settings_container = ObjectProperty(None)
+"""
